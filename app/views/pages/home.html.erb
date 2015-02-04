@@ -1,46 +1,46 @@
+<script src="http://pixelcog.com/parallax.js/js/parallax.min.js"></script>
+<link href="http://pixelcog.com/parallax.js/css/style.css" rel="stylesheet">
+
+
+
 <% unless user_signed_in? %>
 <%= form_for(:user, :url => session_path(:user)) do |f| %>
-  <%= f.text_field :email %>
-  <%= f.password_field :password %>
-  <%= f.check_box :remember_me %>
-  <%= f.label :remember_me %>
+  <%= f.text_field :email, :placeholder => "Email"%>
+  <%= f.password_field :password, :placeholder => "Password"%>
   <%= f.submit 'Sign in' %>
+  <br>
+   <%= f.check_box :remember_me %>
+  <%= f.label :remember_me %>
   <%= link_to "Forgot your password?", new_password_path(:user) %>
 <% end %>
 <% end %>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+<section>
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <div id="ios-notice" class="alert alert-info hidden"><p><strong>Notice:</strong> Hello mobile user. Unfortunately, this parallax effect is not reliably achieved on mobile devices, so all you will see on this demo page are static backgrounds.  Please visit this page on a desktop browser to see its full effect.</p></div>
+        <h1>Simple Parallax Scrolling <small>parallax.js</small></h1>
+        <p>Parallax.js is a dirt simple parallax scrolling effect inspired by <a href="http://spotify.com">Spotify.com</a> and implemented as a jQuery plugin.</p>
+        <a href="https://github.com/pixelcog/parallax.js/archive/v1.3.zip" class="btn btn-default download-link">Download Parallax.js v1.3</a>
+        <a href="https://github.com/pixelcog/parallax.js/" class="btn btn-default">View on GitHub</a>
       </div>
-    </div>
+    </section>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
+    <div> Here </div>
+
+    <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="10" data-image-src="http://i.imgur.com/yAP3stb.jpg" data-natural-width="1400" data-natural-height="900"></div>
+
+    <section>
+      <div class="container">
+        <h2 id="installation">Installation</h2>
+
+        
+
+       
+
+        <p>Hi. sdjf lksjdf lksdjfl s;adkjflsak; dflkjsda ;flk sdjf;lks;l lksdf lkaslk djkfkdshfjk jhsdgf jhsagdjdf g kj</p>
+
+
       </div>
+    </section>
 
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-    </div> <!-- /container -->
+    <div class="parallax-container" data-parallax="scroll" data-bleed="10" data-speed="0.2" data-image-src="http://i.imgur.com/w4Cyw.jpg" data-natural-width="1400" data-natural-height="1400"></div>
