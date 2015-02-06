@@ -1,2 +1,57 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
+
+.alert {
+  margin-bottom: 0px;
+}
+
+#forgot-password {
+  color: #5C5C5C;
+  font-weight: bold;
+  float: right;
+}
+
+#remeber-me {
+  color: #5C5C5C;
+}
+
+
+.btn-xlg {
+  padding: 18px 28px;
+  font-size: 22px;
+  line-height: normal;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+
+
+//.bottom-semicircle {
+//  height: 200px;
+//  width: 400px;
+//  border-radius: 230px 230px 0 0;
+//  -moz-border-radius: 230px 230px 0 0;
+//  -webkit-border-radius: 230px 230px 0 0;
+//  background: rgba(255, 255, 255, 0.5);
+//  position: absolute;
+//  margin-top: -225px;
+//  left: calc(50% - 225px);
+//  max-width: 400px;
+//
+//}
+//
+//.top-semicircle {
+//  height: 200px;
+//  width: 400px;
+//  border-radius:  0 0 230px 230px;
+//  -moz-border-radius: 0 0 230px 230px;
+//  -webkit-border-radius: 0 0 230px 230px;
+//  background: rgba(255, 255, 255, 0.5);
+//  position: absolute;
+//  margin-top: -225px;
+//  left: calc(50% - 225px);
+//  max-width: 400px;
+//
+//}
