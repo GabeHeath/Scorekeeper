@@ -15,3 +15,9 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$( document ).ready(function() {
+    $('#homepage-learn-more').on('click', function () {
+        $('#hotness-thumbnails')[0].scrollIntoView( true );
+    });
+});

@@ -4,18 +4,12 @@
 
 <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="20" data-image-src="assets/rc_bg.jpg" data-natural-width="1600" data-natural-height="848"></div>
 
-<div class="jumbotron">
-  <h1>Big Ass Text</h1>
-  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-</div>
 
-<div style="position:absolute; background-color: rgba(255, 255, 255, 0.80); padding: 30px; border-radius: 8px; top: 300px; left: 33%; width: 30%;">
-  <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary btn-xlg btn-block' %>
-  <hr>
+<div id="social-sign-up">
 
   <a class="btn btn-block btn-social btn-facebook">
     <i class="fa fa-facebook"></i>
-    Sign in with Twitter
+    Sign in with Facebook
   </a>
 
   <a class="btn btn-block btn-social btn-google-plus">
@@ -27,20 +21,39 @@
     <i class="fa fa-twitter"></i>
     Sign in with Twitter
   </a>
+
+  <div class="separator">
+    &mdash; or &mdash;
+  </div>
+
+  <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary btn-xlg btn-block' %>
+
+
 </div>
 
+
+<div class="jumbotron">
+
+<button id='homepage-learn-more'>Learn More<span style="margin: 15px;" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
+
+
+
+  <p><%= bgg_hotness %></p>
+
+  <h1>Play Games</h1>
+
+  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+</div>
+
+
+
 <section>
-
-
-  <!--<div class="bottom-semicircle">-->
-    <!--<button class="btn btn-lg btn-primary btn-block" type="submit" style=" margin: 120px 65px;">Sign Up</button>-->
-  <!--</div>-->
-
   <div class="container">
     <h2 id="installation">Installation</h2>
 
 
     <p>Hi. sdjf lksjdf lksdjfl s;adkjflsak; dflkjsda ;flk sdjf;lks;l lksdf lkaslk djkfkdshfjk jhsdgf jhsagdjdf g kj</p>
+
 
   </div>
 </section>

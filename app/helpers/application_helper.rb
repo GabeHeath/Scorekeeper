@@ -1,39 +1,36 @@
+require 'bgg-api'
+
 module ApplicationHelper
 
-#Added this section to put login fields on home page
-	def title(page_title)
-  		content_for(:title) { page_title }
-	end
-
-	def resource_name
-    :user
-  end
- 
-  def resource
-    @resource ||= User.new
-  end
- 
-  def devise_mapping
-    @devise_mapping ||= Devise.mappings[:user]
+#Dynamic titles on each page
+  def title(page_title)
+    content_for(:title) { page_title }
   end
 
+  def bgg_hotness
+    bgg = BggApi.new
+    content = bgg.hot({:type => "boardgame"})
 
-# Fixing flash alerts.
-  def bootstrap_class_for flash_type
-    { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type.to_sym] || flash_type.to_s
-  end
+    hotness_image_array = Array.new
+    hotness_name_array = Array.new
 
-  def flash_messages(opts = {})
-    flash.each do |msg_type, message|
-      concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} alert-dismissible", role: 'alert') do
-               concat(content_tag(:button, class: 'close', data: { dismiss: 'alert' }) do
-                        concat content_tag(:span, '&times;'.html_safe, 'aria-hidden' => true)
-                        concat content_tag(:span, 'Close', class: 'sr-only')
-                      end)
-               concat message
-             end)
+    content['item'].each_with_index do |url, index|
+
+      hotness_image_array.push("https:" + (content['item'][index]['thumbnail'][0]['value'].to_s.html_safe))
+      hotness_name_array.push((content['item'][index]['name'][0]['value'].to_s.html_safe))
+
     end
-    nil
+
+    html = ""
+    html += "<div id='hotness-thumbnails'>"
+
+    hotness_image_array.each_with_index do |url, index|
+      html += "<img src='#{url}' title='#{hotness_name_array[index]}' >"
+    end
+
+    html += "</div>"
+
+    html.html_safe
   end
 
 
