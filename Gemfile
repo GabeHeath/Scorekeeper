@@ -24,6 +24,8 @@ gem 'font-awesome-rails'
 gem 'bgg-api'
 
 gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

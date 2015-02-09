@@ -7,15 +7,15 @@
 
 <div id="social-sign-up">
 
-  <a class="btn btn-block btn-social btn-facebook">
-    <i class="fa fa-facebook"></i>
-    Sign in with Facebook
-  </a>
+  <%= link_to(user_omniauth_authorize_path(:facebook), :class => "btn btn-block btn-social btn-facebook") do %>
+      <i class="fa fa-facebook"></i>
+      Sign in with Facebook
+  <% end %>
 
-  <a class="btn btn-block btn-social btn-google-plus">
-    <i class="fa fa-google"></i>
-    Sign in with Google
-  </a>
+  <%= link_to(user_omniauth_authorize_path(:google_oauth2), :class => "btn btn-block btn-social btn-google-plus") do %>
+      <i class="fa fa-google"></i>
+      Sign in with Google
+  <% end %>
 
 
   <%= link_to(user_omniauth_authorize_path(:twitter), :class => "btn btn-block btn-social btn-twitter") do %>
