@@ -19,3 +19,4 @@
 /config/database.yml
 /config/secrets.yml
 /.idea
+/config/initializers/devise.rb

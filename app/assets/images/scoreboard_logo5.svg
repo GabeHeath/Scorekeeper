@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="345.2px"
+	 height="142.5px" viewBox="0 0 345.2 142.5" enable-background="new 0 0 345.2 142.5" xml:space="preserve">
+<g id="Layer_1">
+	<g>
+		<path fill="none" stroke="#939598" stroke-width="3" stroke-miterlimit="10" d="M321,133c0,4.4-3.6,8-8,8H9.5c-4.4,0-8-3.6-8-8
+			v-26c0-4.4,3.6-8,8-8H313c4.4,0,8,3.6,8,8V133z"/>
+	</g>
+	
+		<text transform="matrix(0.9688 0 0 1 21.5732 132.2666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631" letter-spacing="43.4">BOARD</text>
+	<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="107.2,80 113.9,109.3 96.4,127.4 
+		79,109.3 85.7,80 	"/>
+</g>
+<g id="Layer_2">
+	<g>
+		<path fill="none" stroke="#939598" stroke-width="3" stroke-miterlimit="10" d="M321,54c0,4.4-3.6,8-8,8H9.5c-4.4,0-8-3.6-8-8V28
+			c0-4.4,3.6-8,8-8H313c4.4,0,8,3.6,8,8V54z"/>
+	</g>
+	
+		<text transform="matrix(0.9688 0 0 1 21.5732 53.2666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631" letter-spacing="43.4">SCORE</text>
+</g>
+<g id="Layer_3">
+	<polygon fill="#E6E7E8" points="96.4,127.2 80.7,110.9 96.4,122.1 	"/>
+	<polygon fill="#A7A9AC" points="96.4,127.2 112.2,110.9 96.4,122.1 	"/>
+	<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="168.2,1.5 174.9,30.8 157.4,48.9 
+		140,30.8 146.7,1.5 	"/>
+	<polygon fill="#E6E7E8" points="157.4,46.8 141.7,30.4 157.4,41.6 	"/>
+	<polygon fill="#A7A9AC" points="157.4,46.8 173.2,30.4 157.4,41.6 	"/>
+</g>
+</svg>

@@ -17,10 +17,13 @@
     Sign in with Google
   </a>
 
-  <a class="btn btn-block btn-social btn-twitter">
-    <i class="fa fa-twitter"></i>
-    Sign in with Twitter
-  </a>
+
+  <%= link_to(user_omniauth_authorize_path(:twitter), :class => "btn btn-block btn-social btn-twitter") do %>
+      <i class="fa fa-twitter"></i>
+      Sign in with Twitter
+  <% end %>
+
+
 
   <div class="separator">
     &mdash; or &mdash;

@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
         end
 
   helper :all # Includes all custom helpers
+
+
+  def after_sign_in_path_for(resource)
+    "/blog" #your custom page
+  end
+
 end

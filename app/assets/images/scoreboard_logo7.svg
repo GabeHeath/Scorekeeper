@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="345.2px"
+	 height="143px" viewBox="0 0 345.2 143" enable-background="new 0 0 345.2 143" xml:space="preserve">
+<g id="Layer_1">
+	<g>
+		<path fill="none" stroke="#6D6E71" stroke-width="3" stroke-miterlimit="10" d="M321,133.5c0,4.4-3.6,8-8,8H9.5c-4.4,0-8-3.6-8-8
+			v-26c0-4.4,3.6-8,8-8H313c4.4,0,8,3.6,8,8V133.5z"/>
+	</g>
+	
+		<text transform="matrix(0.9688 0 0 1 21.5732 132.7666)" fill="#808285" stroke="#808285" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631" letter-spacing="43.4">BOARD</text>
+</g>
+<g id="Layer_2">
+	<g>
+		<path fill="none" stroke="#6D6E71" stroke-width="3" stroke-miterlimit="10" d="M321,54.5c0,4.4-3.6,8-8,8H9.5c-4.4,0-8-3.6-8-8
+			v-26c0-4.4,3.6-8,8-8H313c4.4,0,8,3.6,8,8V54.5z"/>
+	</g>
+	
+		<text transform="matrix(0.9688 0 0 1 21.5732 53.7666)" fill="#808285" stroke="#808285" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631" letter-spacing="43.4">SCORE</text>
+</g>
+<g id="Layer_3">
+	<g>
+		<g>
+			<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="168.2,1.5 174.9,30.8 157.4,48.9 
+				140,30.8 146.7,1.5 			"/>
+			<polyline fill="#A7A9AC" points="171.5,27 167,3 173.2,30.4 171.5,27 			"/>
+			<polygon fill="#A7A9AC" points="147.8,3 146.7,27 157.4,38 172.2,26.5 173.2,30.4 157.4,46.6 141.6,30.3 			"/>
+		</g>
+		<polygon fill="#FFFFFF" points="157.4,38 157.4,46.6 141.6,30.3 147.8,3 146.7,27 		"/>
+	</g>
+	<g>
+		<g>
+			<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="107.2,80.5 113.9,109.8 96.4,127.9 
+				79,109.8 85.7,80.5 			"/>
+			<polyline fill="#A7A9AC" points="110.5,106 106,82 112.2,109.4 110.5,106 			"/>
+			<polygon fill="#A7A9AC" points="86.8,82 85.7,106 96.4,117 111.2,105.5 112.2,109.4 96.4,125.6 80.6,109.3 			"/>
+		</g>
+		<polygon fill="#FFFFFF" points="96.4,117 96.4,125.6 80.6,109.3 86.8,82 85.7,106 		"/>
+	</g>
+</g>
+<g id="Shadow_left_slider" display="none">
+	<g display="inline">
+		<g>
+			<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="183.2,47.5 189.9,76.8 172.4,94.9 
+				155,76.8 161.7,47.5 			"/>
+			<polyline fill="#A7A9AC" points="186.5,73 182,49 188.2,76.4 186.5,73 			"/>
+			<polygon fill="#A7A9AC" points="162.8,49 161.7,73 172.4,84 187.2,72.5 188.2,76.4 172.4,92.6 156.6,76.3 			"/>
+		</g>
+		<polyline fill="#FFFFFF" points="172.4,84 186.3,72.8 182,49 188.2,76.4 172.4,92.6 		"/>
+	</g>
+</g>
+<g id="Primative_Slider" display="none">
+	<g display="inline">
+		<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="183.2,47.5 189.9,76.8 172.4,94.9 
+			155,76.8 161.7,47.5 		"/>
+		<polyline fill="#A7A9AC" points="186.5,73 182,49 188.2,76.4 186.5,73 		"/>
+		<polygon fill="#A7A9AC" points="162.8,49 161.7,73 172.4,84 187.2,72.5 188.2,76.4 172.4,92.6 156.6,76.3 		"/>
+	</g>
+</g>
+</svg>

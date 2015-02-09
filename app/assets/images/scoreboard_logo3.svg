@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="658.8px"
+	 height="141px" viewBox="0 0 658.8 141" enable-background="new 0 0 658.8 141" xml:space="preserve">
+<g id="Layer_1">
+	<g>
+		<path fill="none" stroke="#939598" stroke-width="3" stroke-miterlimit="10" d="M640.5,131.5c0,4.4-3.6,8-8,8H9.5
+			c-4.4,0-8-3.6-8-8v-26c0-4.4,3.6-8,8-8h623c4.4,0,8,3.6,8,8V131.5z"/>
+	</g>
+	
+		<text transform="matrix(1 0 0 1 21.5732 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">0</text>
+	
+		<text transform="matrix(1 0 0 1 77.4731 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">1</text>
+	
+		<text transform="matrix(1 0 0 1 133.373 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">2</text>
+	
+		<text transform="matrix(1 0 0 1 189.2734 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">3</text>
+	
+		<text transform="matrix(1 0 0 1 245.1733 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">4</text>
+	
+		<text transform="matrix(1 0 0 1 301.0732 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">5</text>
+	
+		<text transform="matrix(1 0 0 1 356.9736 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">6</text>
+	
+		<text transform="matrix(1 0 0 1 412.873 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">7</text>
+	
+		<text transform="matrix(1 0 0 1 468.7734 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">8</text>
+	
+		<text transform="matrix(1 0 0 1 524.6738 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">9</text>
+	
+		<text transform="matrix(1 0 0 1 580.5732 130.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631">10</text>
+	<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="489.2,80.5 495.9,109.8 478.4,127.9 
+		461,109.8 467.7,80.5 	"/>
+</g>
+<g id="Layer_2">
+	<g>
+		<path fill="none" stroke="#939598" stroke-width="3" stroke-miterlimit="10" d="M640.5,52.5c0,4.4-3.6,8-8,8H9.5c-4.4,0-8-3.6-8-8
+			v-26c0-4.4,3.6-8,8-8h623c4.4,0,8,3.6,8,8V52.5z"/>
+	</g>
+	
+		<text transform="matrix(0.9688 0 0 1 21.5732 51.7666)" fill="#A7A9AC" stroke="#939598" stroke-miterlimit="10" font-family="'MyriadPro-Regular'" font-size="37.7631" letter-spacing="43.4">SCOREBOARD</text>
+	<polygon fill="#D1D3D4" stroke="#BCBEC0" stroke-width="3" stroke-miterlimit="10" points="170,1.5 176.8,30.8 158.9,48.9 
+		141,30.8 147.8,1.5 	"/>
+</g>
+</svg>
