@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, and :timeoutable
-  devise :database_authenticatable, :registerable, :omniauthable,
+  devise :database_authenticatable, :registerable, :omniauthable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
@@ -10,12 +10,32 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
+
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    user = User.find_by(email: auth.info.email)
+    if user and user.confirmed?
       user.provider = auth.provider
-      user.uid      = auth.uid
-      user.name     = auth.info.name
-      user.save
+      user.uid = auth.uid
+      return user
+    end
+
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      email_is_verified = auth.info.email && (auth[:extra][:raw_info][:email_verified] || auth.info.verified)
+
+      logger.debug "email verified: #{email_is_verified}"
+      logger.debug "auth.info.email: #{auth.info.email}"
+      logger.debug "auth[:extra][:raw_info][:email_verified]: #{auth[:extra][:raw_info][:email_verified]}"
+      logger.debug "auth.info.verified: #{auth.info.verified}"
+      logger.debug "auth: #{auth}"
+
+      if email_is_verified
+        user.skip_confirmation!
+      end
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = auth.info.email
+      #user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name
     end
   end
 
@@ -33,6 +53,7 @@ class User < ActiveRecord::Base
   def password_required?
     super && provider.blank?
   end
+
 
   def update_with_password (params, *options)
     if encrypted_password.blank?
