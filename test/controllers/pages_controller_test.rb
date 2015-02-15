@@ -6,8 +6,8 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get about" do
-    get :about
+  test "should get main" do
+    get :main
     assert_response :success
   end
 

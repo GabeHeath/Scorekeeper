@@ -116,6 +116,161 @@ button:focus {
 }
 
 
+.logo-signed-in {
+  width: 89px;
+  margin-top: -10px;
+}
+
+@media (max-width: 767px) {
+
+  .logo-signed-in {
+    width: 210px;
+    margin-left: calc(50% - 72px);
+  }
+
+}
+
+
+
+
+
+// left slide out nav
+* {
+  box-sizing: border-box;
+}
+
+html, body { min-height: 100%; }
+a { text-decoration: none; }
+
+.main-header {
+  background: linear-gradient(#3F94BF, #246485);
+  padding: 5px;
+  text-align: center;
+  color: white;
+  text-shadow: #222 0px -1px 1px;
+  position: absolute;//fixed;
+  width: 100%;
+  left: 0;
+  transition: all 0.3s ease;
+  .toggle-menu {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+  }
+}
+
+.page-wrap {
+  float: right;
+  width: 100%;
+  transition: width 0.3s ease;
+  margin-top: -20px;
+}
+
+.main-nav-check {
+  display: none;
+}
+
+.main-nav {
+  position: absolute;//fixed;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: #3B3B3B;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  margin-top: 50px;
+  a {
+    display: block;
+    background: linear-gradient(#3E3E3E, #383838);
+    border-top: 1px solid #484848;
+    border-bottom: 1px solid #2E2E2E;
+    color: white;
+    padding: 15px;
+    &:hover, &:focus {
+      background: linear-gradient(#484848, #383838);
+    }
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 34px;
+    background: linear-gradient(left, rgba(black, 0), rgba(black, 0.4));
+  }
+}
+
+.content {
+  padding: 100px 20px 20px 20px;
+}
+
+.close-menu {
+  display: none;
+}
+
+#main-nav-check:checked + #main-nav {
+  width: 20%;
+}
+#main-nav-check:checked ~ .page-wrap {
+  width: 80%;
+  .open-menu {
+    display: none;
+  }
+  .close-menu {
+    display: block;
+  }
+  .main-header {
+    width: 80%;
+    left: 20%;
+  }
+}
+
+
+
+
+
+
+
+// autofill dropdown
+ul.ui-autocomplete {
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: solid 1px #999;
+  cursor: default;
+  min-height: 25px;
+  max-height:200px;
+  overflow:auto;
+  li {
+    background-color: #FFF;
+    border-top: solid 1px #DDD;
+    margin: 0;
+    padding: 0;
+    a {
+      color: #000;
+      display: block;
+      padding: 3px;
+    }
+    a.ui-state-hover, a.ui-state-active {
+      background-color: #FFFCB2;
+    }
+  }
+  li:hover {
+    background-color: #FFFCB2;
+  }
+}
+
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+.ui-autocomplete-loading { background:url('http://www.ajaxload.info/cache/FF/FF/FF/00/00/00/1-0.gif') no-repeat right center }
+
 
 
 

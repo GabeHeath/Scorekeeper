@@ -53,7 +53,7 @@ set :output, {:error => "#{path}/log/cron_error_log.log", :standard => "#{path}/
 # whenever -c scorekeeper
 
 # To update
-#whenever --update-crontab scorekeeper
+# whenever --update-crontab scorekeeper
 
 
 
@@ -63,5 +63,5 @@ every 1.day, :at => "10:00am" do
 end
 
 every 1.day, :at => "10:30am" do
-  command "cp -r #{path}/app/assets/images/tmp/bgg_hotness #{path}/app/assets/images/tmp/bgg_hotness_#{Date.today.to_s}"
+  command "cp -r #{path}/app/assets/images/tmp/bgg_hotness #{path}/app/assets/images/tmp/bgg_hotness_`date +%Y-%m-%d`"
 end

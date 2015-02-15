@@ -24,4 +24,27 @@ class Bgg < ActiveRecord::Base
     end
 
   end
+
+
+  def self.bgg_autofill_search(search_term)
+    bgg = BggApi.new
+    games = bgg.search( {:query => "#{search_term}", :type => 'boardgame'} )
+
+    game_names_array = Array.new
+
+    games['item'].each_with_index do |game, index|
+        game_names_array.push((games['item'][index]['name'][0]['value']) + " (#{games['item'][index]['yearpublished'][0]['value']})") rescue nil
+    end
+
+    return game_names_array
+
+
+
+  end
+
+
+
+
+
+
 end
