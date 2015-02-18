@@ -55,13 +55,15 @@ set :output, {:error => "#{path}/log/cron_error_log.log", :standard => "#{path}/
 # To update
 # whenever --update-crontab scorekeeper
 
-
+every 1.day, :at => "9:30am" do
+  command "rm #{path}/app/assets/images/tmp/bgg_hotness/*"  #Clears the folder
+end
 
 
 every 1.day, :at => "10:00am" do
-  runner "Bgg.cache_bgg_hotness"
+  runner "Bgg.cache_bgg_hotness"  #Dumps the new hotness images, names, rank
 end
 
 every 1.day, :at => "10:30am" do
-  command "cp -r #{path}/app/assets/images/tmp/bgg_hotness #{path}/app/assets/images/tmp/bgg_hotness_`date +%Y-%m-%d`"
+  command "cp -r #{path}/app/assets/images/tmp/bgg_hotness #{path}/app/assets/images/tmp/bgg_hotness_`date +%Y-%m-%d`"  #Backs it up
 end

@@ -29,6 +29,8 @@ gem 'omniauth-google-oauth2'
 
 gem 'whenever', :require => false
 
+gem 'jquery-ui-rails'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

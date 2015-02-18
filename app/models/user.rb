@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :plays#, :dependent => destroy
+  has_many :games, :through => :plays
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, and :timeoutable

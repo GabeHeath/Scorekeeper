@@ -1,0 +1,34 @@
+<div class="page-wrap">
+
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
+
+    <h1>Game Library</h1>
+  </header>
+
+
+  <div class="content">
+
+    <p>
+      <strong>Name:</strong>
+      <%= @game.name %>
+    </p>
+
+    <p>
+      <strong>Bgg:</strong>
+      <%= @game.bgg_id %>
+    </p>
+
+    <p>
+      <strong>Type:</strong>
+      <%= @game.game_type %>
+    </p>
+
+    <%= link_to 'Edit', edit_game_path(@game) %> |
+    <%= link_to 'Back', games_path %>
+
+  </div><!-- content -->
+</div> <!-- page-wrapper -->
+

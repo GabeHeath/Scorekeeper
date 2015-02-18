@@ -1,0 +1,60 @@
+<div class="page-wrap">
+
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
+
+    <h1>Game Library</h1>
+  </header>
+
+
+  <div class="content">
+
+    <p>
+      <strong>Play:</strong>
+      <%= @play.play_id %>
+    </p>
+
+    <p>
+      <strong>Game:</strong>
+      <%= @play.game_id %>
+    </p>
+
+    <p>
+      <strong>User:</strong>
+      <%= @play.user_id %>
+    </p>
+
+    <p>
+      <strong>Score:</strong>
+      <%= @play.score %>
+    </p>
+
+    <p>
+      <strong>Win:</strong>
+      <%= @play.win %>
+    </p>
+
+    <p>
+      <strong>Date:</strong>
+      <%= @play.date %>
+    </p>
+
+    <p>
+      <strong>Notes:</strong>
+      <%= @play.notes %>
+    </p>
+
+    <p>
+      <strong>Created at:</strong>
+      <%= @play.created_at %>
+    </p>
+
+    <%= link_to 'Edit', edit_play_path(@play) %> |
+    <%= link_to 'Back', plays_path %>
+
+
+  </div><!-- content -->
+</div> <!-- page-wrapper -->
+

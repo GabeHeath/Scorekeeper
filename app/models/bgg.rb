@@ -37,6 +37,29 @@ class Bgg < ActiveRecord::Base
     end
 
     return game_names_array
+  end
+
+
+
+  def self.bgg_get_name_and_id(game_name)
+    name = game_name.slice(0..(name.length-8))
+    year = game_name.slice((game_name.length-5)..(game_name.length-2))
+    bgg_id = nil
+
+    bgg = BggApi.new
+    info = bgg.search( {:query => "#{name}", :type => 'boardgame'}, :exact => 1)
+
+    info['item'].each_with_index do |item, index|
+      if info['item'][index]['yearpublished'][0]['value'] == year
+        (info['item'][0]['id']).to_i = bgg_id
+      end
+    end
+
+    if bgg.nil?
+      return [name, year, bgg_id]
+    else
+      return [name, year]
+    end
 
 
 

@@ -11,10 +11,11 @@
 // main supported directives.
 //
 //= require jquery
+//= require jquery-ui/autocomplete
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
+// require_tree .
 
 $( document ).ready(function() {
     $('#homepage-learn-more').on('click', function () {

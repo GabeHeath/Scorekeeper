@@ -20,3 +20,4 @@
 /config/secrets.yml
 /.idea
 /config/initializers/devise.rb
+/assets/images/tmp
