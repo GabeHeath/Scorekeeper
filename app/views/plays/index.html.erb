@@ -16,11 +16,8 @@
     <table>
       <thead>
       <tr>
-        <th>Play</th>
         <th>Game</th>
-        <th>User</th>
         <th>Score</th>
-        <th>Win</th>
         <th>Date</th>
         <th>Notes</th>
         <th>Created at</th>
@@ -31,11 +28,7 @@
       <tbody>
       <% @plays.each do |play| %>
           <tr>
-            <td><%= play.play_id %></td>
             <td><%= play.game_id %></td>
-            <td><%= play.user_id %></td>
-            <td><%= play.score %></td>
-            <td><%= play.win %></td>
             <td><%= play.date %></td>
             <td><%= play.notes %></td>
             <td><%= play.created_at %></td>

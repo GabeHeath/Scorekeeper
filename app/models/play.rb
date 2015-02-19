@@ -2,24 +2,22 @@ class Play < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
+  has_many :players
+  has_many :users, through: :players
+
   accepts_nested_attributes_for :game
+  # accepts_nested_attributes_for :player
 
 
-  before_save :get_bgg_info
-
-
-  private
-
-  def get_bgg_info
-    data = Bgg.bgg_get_name_and_id(@game.name)
-
-    logger.debug "Finally: #{data}"
-    # if data.length < 2
-    # #Search through table to see if it already exists
-    # else
-    #
-    # end
-
-  end
+  # after_save :add_players
+  #
+  #
+  # private
+  #
+  # def add_players()
+  #   @player = Player.new(player_params)
+  #   @player.user_id = current_user.id
+  #   @player.game_id =
+  # end
 
 end

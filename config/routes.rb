@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :collections
+
+  resources :players
+
     resources :plays
 
     resources :games

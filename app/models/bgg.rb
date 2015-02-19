@@ -3,6 +3,7 @@ require 'open-uri'
 
 class Bgg < ActiveRecord::Base
 
+  # Gets the top 50 most views BGG games of the day.
   def self.cache_bgg_hotness
     bgg = BggApi.new
     content = bgg.hot({:type => "boardgame"})
@@ -25,7 +26,7 @@ class Bgg < ActiveRecord::Base
 
   end
 
-
+  # Jquery-ui autocomplete calls this to get source game names
   def self.bgg_autofill_search(search_term)
     bgg = BggApi.new
     games = bgg.search( {:query => "#{search_term}", :type => 'boardgame'} )
@@ -40,25 +41,29 @@ class Bgg < ActiveRecord::Base
   end
 
 
-
+ # When play is recorded associates, this parses the game name into more info that
+ # goes to the Play table and the Game table
   def self.bgg_get_name_and_id(game_name)
-    name = game_name.slice(0..(name.length-8))
+    name = game_name.slice(0..(game_name.length-8))
     year = game_name.slice((game_name.length-5)..(game_name.length-2))
     bgg_id = nil
 
     bgg = BggApi.new
-    info = bgg.search( {:query => "#{name}", :type => 'boardgame'}, :exact => 1)
+    info = bgg.search( {:query => "#{name}", :type => 'boardgame', :exact => 1})
 
-    info['item'].each_with_index do |item, index|
-      if info['item'][index]['yearpublished'][0]['value'] == year
-        (info['item'][0]['id']).to_i = bgg_id
+    unless info['item'].nil?
+      info['item'].each_with_index do |item, index|
+        if info['item'][index]['yearpublished'][0]['value'] == year
+          bgg_id = (info['item'][index]['id']).to_i
+          break
+        end
       end
     end
 
-    if bgg.nil?
+    if bgg_id.nil? # Either game title that user typed doesn't exist or api failed
+      return [game_name]
+    else # Found match in bgg database
       return [name, year, bgg_id]
-    else
-      return [name, year]
     end
 
 

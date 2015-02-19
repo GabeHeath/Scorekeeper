@@ -4,15 +4,15 @@ class PlaysController < ApplicationController
   # GET /plays
   # GET /plays.json
   def index
-        @plays = current_user.plays
+    @plays = current_user.plays
   end
 
   # GET /plays/1
   # GET /plays/1.json
   def show
-    @play = Play.find params[:id]
+    @plays = current_user.plays
     if user_signed_in?
-      unless current_user.id == @play.user_id
+      unless current_user.id == @play.user_ids[0]
         flash[:error] = "The page you requested does not exist."
         redirect_to plays_url
         return
@@ -36,19 +36,34 @@ class PlaysController < ApplicationController
   # POST /plays
   # POST /plays.json
   def create
+
     @play = Play.new(play_params)
-    @play.play_id = Play.maximum(:play_id).to_i.next
-    @play.user_id = current_user.id
 
-    #@game = Game.new(params[:game])
     @game = Game.new(game_params)
-    @game.game_type = "primary"
-
+      # Parse and set game_id
+      data = Bgg.bgg_get_name_and_id((@game.name).to_s) #Returns array of 2 if name user typed doesn't exist or api failed. Returns 3 if found in BGG database.
+      attributes = {name: data[0], year: data[1], bgg_id: data[2], game_type: 'primary'}
+      @new_game = Game.where(attributes).first_or_create
+      # unless data[2].nil?
+      #   @play.game_id = data[2]
+      # else
+        @play.game_id = @new_game.id #(Game.where(:name => (data[0]).to_s).pluck(:id))[0]
+      # end
 
     respond_to do |format|
-      if @play.save && @game.save
-        format.html { redirect_to @play, notice: 'Play was successfully created.' }
-        format.json { render :show, status: :created, location: @play }
+      if @play.save
+
+        @player = Player.new #(player_params)
+        @player.user_id = current_user.id
+        @player.play_id = @play.id
+
+        if @player.save
+          format.html { redirect_to @play, notice: 'Play was successfully created.' }
+          format.json { render :show, status: :created, location: @play }
+        else
+          format.html { render :new }
+          format.json { render json: @play.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @play.errors, status: :unprocessable_entity }
@@ -88,11 +103,15 @@ class PlaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def play_params
-      params.require(:play).permit(:play_id, :game_id, :user_id, :score, :win, :date, :notes, :created_at)
+      params.require(:play).permit(:game_id, :date, :notes, :created_at)
     end
 
   def game_params
     params.require(:game).permit(:name, :year, :bgg_id, :game_type)
+  end
+
+  def player_params
+    params.require(:player).permit(:play_id, :user_id, :score, :win)
   end
 
 end

@@ -1,6 +1,14 @@
 class User < ActiveRecord::Base
-  has_many :plays#, :dependent => destroy
+  #has_many :plays#, :dependent => destroy
   has_many :games, :through => :plays
+
+  #un tested but feel pretty good about
+  has_many :collections
+  has_many :games, through: :collections
+
+  #unsure
+  has_many :players
+  has_many :plays, through: :players
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, and :timeoutable
