@@ -15,32 +15,68 @@
 
   <div class="content">
 
-    <div class="input-group">
-      <input type="text" id="bgg-game-search" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-    </div><!-- /input-group -->
 
-    <p>It’s all about playing four quarters. I think we played well but the other team played well too. They took advantage of certain circumstances that arose. It’s a physical game.</p>
 
-    <p>We tried to capitalize on some mistakes they made. In the third quarter they ran some plays. They are very good at throwing the football. They have a good quarterback who is a real leader. There are no statistics for that.</p>
+    <div id="cal-heatmap"></div>
+    <table id="cal-heatmap-month-labels">
+      <tr>
+        <td>Jan</td>
+        <td>Feb</td>
+        <td>Mar</td>
+        <td>Apr</td>
+        <td>May</td>
+        <td>Jun</td>
+        <td>Jul</td>
+        <td>Aug</td>
+        <td>Sep</td>
+        <td>Oct</td>
+        <td>Nov</td>
+        <td>Dec</td>
+      </tr>
 
-    <p>We just need to show up, take things day by day, and prepare for the future. We’re looking at next week. We’re very optimistic. We’ll need to tighten up our game, make less mistakes, and stay focused.</p>
+      <div id="cal-heatmap-day-labels">
+        <div>M</div>
+        <div>W</div>
+        <div>F</div>
+      </div>
 
-    <p>There are 22 players out there. We’re 11 of them. This is a game played on grass. It’s full of intangibles. There are ups and downs. If we look at today’s champions, they are proven winners. They play football.</p>
+    </table>
+    <button class="btn btn-default" id="onMinDomainReached-previous"><i class="glyphicon glyphicon-chevron-left"></i></button>
+    <button class="btn btn-default" id="onMinDomainReached-next"><i class="glyphicon glyphicon-chevron-right"></i></button>
+    <script type="text/javascript">
+        var cal = new CalHeatMap();
+        cal.init({
+            domain: "year",
+            subDomain: "day",
+            cellSize: 15,
+            subDomainTextFormat: "%d",
+            range: 1,
+            displayLegend: true,
+            start: new Date(2015, 0, 15),
+            maxDate: new Date(2015, 11),
+            nextSelector: "#onMinDomainReached-next",
+            previousSelector: "#onMinDomainReached-previous",
+            onMaxDomainReached: function(hit) {
+                if (hit) {
+                    $("#onMinDomainReached-next").hide();
+                } else {
+                    $("#onMinDomainReached-next").show();
+                }
+            },
+            legendHorizontalPosition: "right",
+            legendMargin: [-20,0,0,0],
+            highlight: "now",
+            legend: [ 1, 2, 3, 4],
+            itemName: ["play", "plays"],
+            tooltip: true,
+            data: "http://localhost:3000/plays.json"
+        });
+    </script>
 
-    <p>The groundwork has been laid so, now let’s look the future, make some good decisions, and take things to the next level.</p>
-
-    <p>It’s all about playing four quarters. I think we played well but the other team played well too. They took advantage of certain circumstances that arose. It’s a physical game.</p>
-
-    <p>We tried to capitalize on some mistakes they made. In the third quarter they ran some plays. They are very good at throwing the football. They have a good quarterback who is a real leader. There are no statistics for that.</p>
-
-    <p>We just need to show up, take things day by day, and prepare for the future. We’re looking at next week. We’re very optimistic. We’ll need to tighten up our game, make less mistakes, and stay focused.</p>
-
-    <p>There are 22 players out there. We’re 11 of them. This is a game played on grass. It’s full of intangibles. There are ups and downs. If we look at today’s champions, they are proven winners. They play football.</p>
-
-    <p>The groundwork has been laid so, now let’s look the future, make some good decisions, and take things to the next level.</p>
+    <div id="cal-heatmap-legend-labels">
+      <span style="float:left">Less</span>
+      <span style="float:right">More</span>
+    </div>
 
   </div>
 

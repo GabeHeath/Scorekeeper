@@ -31,6 +31,8 @@ gem 'whenever', :require => false
 
 gem 'jquery-ui-rails'
 
+gem 'amistad'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -19,4 +19,5 @@ class ApplicationController < ActionController::Base
     "/main" #your custom page
   end
 
+
 end

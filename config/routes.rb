@@ -12,13 +12,28 @@ Rails.application.routes.draw do
              controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
 
+  authenticated :user do
+    root :to => 'pages#main', as: :authenticated_root
+  end
+  root :to => 'pages#home'
 
-  root 'pages#home'
+
+
+
+
+
 
   get 'main' => "pages#main", as: :main
   get 'blog' => "pages#blog", as: :blog
 
   resources :bgg_search_suggestions
+
+  resources :friends, :controller => 'friendships', :except => [:show, :edit, :new] do
+    put "block", :on => :member
+    put "unblock", :on => :member
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

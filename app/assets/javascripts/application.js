@@ -22,3 +22,10 @@ $( document ).ready(function() {
         $('#hotness-thumbnails')[0].scrollIntoView( true );
     });
 });
+
+// Hides images if bgg api returns broken link
+$( document ).ready(function() {
+    $("img").error(function () {
+        $(this).hide();
+    });
+});

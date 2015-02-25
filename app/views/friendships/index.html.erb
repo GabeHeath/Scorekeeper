@@ -1,0 +1,73 @@
+<div class="page-wrap">
+
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
+
+    <h1>Record a Play</h1>
+  </header>
+
+
+  <div class="content">
+
+    <% unless @friends.blank? %>
+        <% for user in @friends %>
+            <%= user.email %><%= link_to "Unfriend", friend_path(user), :method => "delete", :class => 'btn btn-mini' %>
+            <br>
+        <% end %>
+    <% else %>
+        You have no friends.
+        <br>
+    <% end %>
+
+    <% unless @pending_invited.blank? %>
+        <% for user in @pending_invited %>
+            <%= user.email %><span class="btn btn-mini disabled">Pending</span>
+            <br>
+        <% end %>
+    <% else %>
+        No one has asked to be your friend.
+        <br>
+    <% end %>
+
+    <% unless @pending_invited_by.blank? %>
+        <% for user in @pending_invited_by %>
+            <%= user.email %><%= link_to "Accept", friend_path(user), :method => "put", :class => 'request-approve btn btn-mini' %>
+            <%= link_to "Decline", friend_path(user), :method => "delete", :class => 'request-decline btn btn-mini' %>
+            <%= link_to "Block", block_friend_path(user), :method => "put", :class => 'request-approve btn btn-mini' %>
+            <br>
+        <% end %>
+    <% else %>
+       You haven't requested any friends.
+        </br>
+    <% end %>
+
+    <% unless @blocked.blank? %>
+    <% for user in @blocked %>
+        <%= user.email %><%= link_to "Unblock", unblock_friend_path(user), :method => "put", :class => 'btn btn-mini' %>
+        <br>
+    <% end %>
+    <% else %>
+    You haven't blocked anyone.
+    <br>
+    <% end %>
+
+
+    <%= form_tag({:controller => 'friendships', :action => 'create'}, :method => "post", class: 'form-horizontal') do %>
+        <label for="email">Friend's Email</label>
+        <%= text_field_tag :email %>
+        <%= submit_tag "Add Friend" %>
+    <% end %>
+
+
+    <%= link_to "Add friend", friends_path(:user_id => user), :method => "post", :class => 'btn btn-mini' %>
+
+  </div><!-- content -->
+</div> <!-- page-wrapper -->
+
+
+
+
+
+
