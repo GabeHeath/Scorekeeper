@@ -11,11 +11,28 @@
 
   <div class="content">
 
-    <h1>New Play</h1>
 
-    <%= render 'form' %>
+    <div class="row">
+      <div class="new-play-form col-md-5 col-md-offset-1">
+        <%= render 'form' %>
+      </div>
 
-    <%= link_to 'Back', plays_path %>
+      <div class="col-md-5">
+        <%= render 'player_expansion_form' %>
+      </div>
+    </div>
+
+
+    <br>
+
+    <div class="row">
+<div class="new-play-form col-md-5 col-md-offset-1">
+  <button id="submit-play" class="btn btn-primary btn-block">Create Play</button>
+  <%= link_to 'Cancel', plays_path, :class => "btn btn-default btn-block" %>
+</div>
+      </div>
+
+
 
 
   </div><!-- content -->

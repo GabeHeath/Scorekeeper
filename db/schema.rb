@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150223212616) do
     t.integer  "game_id",    limit: 4,     null: false
     t.date     "date",                     null: false
     t.text     "notes",      limit: 65535
+    t.string   "location",   limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

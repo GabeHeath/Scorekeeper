@@ -33,6 +33,10 @@ gem 'jquery-ui-rails'
 
 gem 'amistad'
 
+gem 'bootstrap-datepicker-rails'
+
+gem 'jquery-turbolinks'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

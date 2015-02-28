@@ -1,0 +1,58 @@
+<%= form_for(@play) do |f| %>
+    <% if @play.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@play.errors.count, "error") %> prohibited this play from being saved:</h2>
+
+          <ul>
+            <% @play.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <table id="players-table" class="table table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>Score</th>
+        <th>Win</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="fields stripe">
+        <td>1</td>
+        <td><%= current_user.name %></td>
+        <td>
+          <%= fields_for :player do |fg| %>
+              <%= fg.text_field :score, :class => 'form-control input-xs'%>
+          <% end %>
+        </td>
+        <td>
+          <%= fields_for :player do |fg| %>
+              <%= fg.check_box :win%>
+          <% end %>
+        </td>
+        <td>
+          &nbsp;
+        </td>
+      </tr>
+
+
+
+      </tbody>
+    </table>
+    <%= link_to_add_fields "Add Player", f, :players %>
+
+
+<% end %>
+
+
+
+
+
+
+

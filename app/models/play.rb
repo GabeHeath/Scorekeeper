@@ -5,8 +5,11 @@ class Play < ActiveRecord::Base
   has_many :players
   has_many :users, through: :players
 
+
   accepts_nested_attributes_for :game
-  # accepts_nested_attributes_for :player
+  accepts_nested_attributes_for :players, :reject_if => lambda { |a| a[:name].blank? }
+
+
 
 
   # after_save :add_players

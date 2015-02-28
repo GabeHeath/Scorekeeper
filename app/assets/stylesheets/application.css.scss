@@ -1,3 +1,6 @@
+/*
+*= require bootstrap-datepicker
+*/
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
@@ -270,7 +273,10 @@ ul.ui-autocomplete {
   display: none;
 }
 
-.ui-autocomplete-loading { background:url('http://www.ajaxload.info/cache/FF/FF/FF/00/00/00/1-0.gif') no-repeat right center }
+.ui-autocomplete-loading {
+  background:url('autocomplete_loading.gif') no-repeat right center;
+  background-color: #fff;
+}
 
 
 
@@ -293,20 +299,20 @@ ul.ui-autocomplete {
 
 #onMinDomainReached-previous {
   position: absolute;
-  bottom: calc(25px + 68.5px);
-  left: calc(50% - 510px);
+  bottom: -10px;
+  left: calc(50% - 450px);
 }
 
 #onMinDomainReached-next {
   position: absolute;
-  bottom: calc(25px + 68.5px);
-  left: calc(50% + 470px);
+  bottom: -10px;
+  left: calc(50% - 420px);
 }
 
 #cal-heatmap-month-labels {
   width: 900px;
   position: absolute;
-  bottom: 164px;
+  bottom: 137px;
   left: calc(50% - 430px);
   color: #999;
   font-size: 10px;
@@ -316,7 +322,7 @@ ul.ui-autocomplete {
   font-size: 10px;
   color: #999;
   position: absolute;
-  bottom: 52px;
+  bottom: 27px;
   left: calc(50% - 463px);
   line-height: 34px;
 }
@@ -325,11 +331,38 @@ ul.ui-autocomplete {
   font-size: 10px;
   color: #999;
   position: absolute;
-  bottom: 23px;
+  bottom: -2px;
   left: calc(50% + 360px);
   width: 120px;
 }
 
+
+
+
+
+.new-play-form {
+  background-color: rgb(237, 237, 237);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+
+.input-xs {
+  height: 22px;
+  padding: 5px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  width: 30%;
+}
+
+
+
+
+
+.stripe {
+  background-color: #f9f9f9;
+}
 
 
 

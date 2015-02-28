@@ -11,11 +11,13 @@
 // main supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery-ui/autocomplete
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-// require_tree .
+//= require bootstrap-datepicker
+//= require_tree .
 
 $( document ).ready(function() {
     $('#homepage-learn-more').on('click', function () {
@@ -27,5 +29,44 @@ $( document ).ready(function() {
 $( document ).ready(function() {
     $("img").error(function () {
         $(this).hide();
+    });
+});
+
+
+var playerCount = 1;
+
+function remove_player(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".fields").hide();
+    playerCount--;
+    renumberRows();
+    stripeRows()
+}
+
+function renumberRows() {
+    $('#players-table tr:visible').each(function(index, el){
+        $(this).children('td:first').first().text(function(i,t){
+            return index++;
+        });
+    });
+}
+
+function stripeRows() {
+    $('#players-table tr:visible').each(function(index, el){
+        $(this).toggleClass("stripe", (index+1)%2 == 0);
+    });
+}
+
+$( document ).ready(function() {
+    $('form').on('click', '.add_fields', function (event) {
+        var regexp, time;
+        time = new Date().getTime();
+        regexp = new RegExp($(this).data('id'), 'g');
+        $('#players-table tr:last').after($(this).data('fields').replace(regexp, time));
+        //$(this).before($(this).data('fields').replace(regexp, time));
+        playerCount++;
+        $('#players-table tr:last td:first').text(playerCount);
+        stripeRows();
+        return event.preventDefault();
     });
 });

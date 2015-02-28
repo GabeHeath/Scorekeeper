@@ -1,0 +1,17 @@
+<tr class="fields">
+  <td></td>
+  <td><%= current_user.name %></td>
+  <td>
+    <%= fields_for :player do |fg| %>
+        <%= fg.text_field :score, :class => 'form-control input-xs'%>
+    <% end %>
+  </td>
+  <td>
+    <%= fields_for :player do |fg| %>
+        <%= fg.check_box :win%>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to_remove_fields "&times".html_safe, f %>
+  </td>
+</tr>

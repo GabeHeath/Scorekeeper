@@ -1,4 +1,4 @@
-<%= javascript_include_tag "autofill.js" %>
+
 
 
 <%= form_for(@play) do |f| %>
@@ -14,31 +14,28 @@
     </div>
   <% end %>
 
-  <%= fields_for :game do |fg| %>
-  <div class="input-group">
-    <%= fg.text_field :name, :id => 'bgg-game-search', :class => 'form-control', :placeholder => 'Search for...'%>
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button">Go!</button>
-    </span>
-  </div><!-- /input-group -->
-  <% end %>
+    <%= fields_for :game do |fg| %>
+        <label>Game:</label>
+        <%= fg.text_field :name, :id => 'bgg-game-search', :class => 'form-control', :placeholder => 'Search for...'%>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :game_id %><br>
-    <%= f.number_field :game_id %>
+<br>
+
+  <div class="col-md-6">
+      <label>Date:</label>
+      <%= f.text_field :date, :class => 'datepicker form-control' %>
   </div>
 
+    <div class="col-md-6">
+      <label>Location:</label>
+      <%= f.text_field :location, :class => 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
-  </div>
+<br><br><br><br>
+
   <div class="field">
     <%= f.label :notes %><br>
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :rows => 5, :class => "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
