@@ -29,25 +29,22 @@
         <td>
           <%= fields_for :player do |fg| %>
               <%= fg.text_field :score, :class => 'form-control input-xs'%>
-          <% end %>
         </td>
         <td>
-          <%= fields_for :player do |fg| %>
-              <%= fg.check_box :win%>
-          <% end %>
+              <%= fg.check_box :win %>
         </td>
         <td>
           &nbsp;
         </td>
       </tr>
 
-
+      <%= render "player_fields", f: f %>
 
       </tbody>
     </table>
     <%= link_to_add_fields "Add Player", f, :players %>
 
-
+          <% end %>
 <% end %>
 
 

@@ -11,16 +11,4 @@ class Play < ActiveRecord::Base
 
 
 
-
-  # after_save :add_players
-  #
-  #
-  # private
-  #
-  # def add_players()
-  #   @player = Player.new(player_params)
-  #   @player.user_id = current_user.id
-  #   @player.game_id =
-  # end
-
 end

@@ -28,7 +28,7 @@
 
     <div class="col-md-6">
       <label>Location:</label>
-      <%= f.text_field :location, :class => 'form-control' %>
+      <%= f.text_field :location, :id => 'new-play-location', :class => 'form-control' %>
     </div>
 
 <br><br><br><br>
@@ -37,5 +37,13 @@
     <%= f.label :notes %><br>
     <%= f.text_area :notes, :rows => 5, :class => "form-control" %>
   </div>
+
+    </div><!-- Closing div inside form-->
+
+
+
+    <div class="col-md-5">
+      <%= render 'player_expansion_form' %>
+    </div>
 
 <% end %>

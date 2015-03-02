@@ -44,18 +44,21 @@ class PlaysController < ApplicationController
       data = Bgg.bgg_get_name_and_id((@game.name).to_s) #Returns array of 2 if name user typed doesn't exist or api failed. Returns 3 if found in BGG database.
       attributes = {name: data[0], year: data[1], bgg_id: data[2], game_type: 'primary'}
       @new_game = Game.where(attributes).first_or_create
-      # unless data[2].nil?
-      #   @play.game_id = data[2]
-      # else
-        @play.game_id = @new_game.id #(Game.where(:name => (data[0]).to_s).pluck(:id))[0]
-      # end
+
+        @play.game_id = @new_game.id
+
+    @player = Player.new(player_params)
+
+logger.debug "HERE: #{score = params[:player][:score]}"
 
     respond_to do |format|
       if @play.save
 
-        @player = Player.new #(player_params)
         @player.user_id = current_user.id
         @player.play_id = @play.id
+
+
+
 
         if @player.save
           format.html { redirect_to @play, notice: 'Play was successfully created.' }
@@ -111,7 +114,7 @@ class PlaysController < ApplicationController
   end
 
   def player_params
-    params.require(:player).permit(:play_id, :user_id, :score, :win)
+    params.require(:player).permit(:score, :win) #:play_id, :user_id,
   end
 
 end

@@ -58,12 +58,12 @@ function stripeRows() {
 }
 
 $( document ).ready(function() {
-    $('form').on('click', '.add_fields', function (event) {
+    $(".add_fields").click(function (event) {
+    //$('form').on('click', '.add_fields', function (event) {
         var regexp, time;
         time = new Date().getTime();
         regexp = new RegExp($(this).data('id'), 'g');
         $('#players-table tr:last').after($(this).data('fields').replace(regexp, time));
-        //$(this).before($(this).data('fields').replace(regexp, time));
         playerCount++;
         $('#players-table tr:last td:first').text(playerCount);
         stripeRows();

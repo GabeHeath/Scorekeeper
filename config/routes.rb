@@ -28,6 +28,13 @@ Rails.application.routes.draw do
 
   resources :bgg_search_suggestions
 
+  resources :autofill do
+    get 'bgg', :on => :collection
+    get 'location', :on => :collection
+    get 'player', :on => :collection
+  end
+  #resources :autofill
+
   resources :friends, :controller => 'friendships', :except => [:show, :edit, :new] do
     put "block", :on => :member
     put "unblock", :on => :member
