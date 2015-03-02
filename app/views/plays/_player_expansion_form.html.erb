@@ -23,28 +23,16 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="fields stripe">
-        <td>1</td>
-        <td><%= current_user.name %></td>
-        <td>
-          <%= fields_for :player do |fg| %>
-              <%= fg.text_field :score, :class => 'form-control input-xs'%>
-        </td>
-        <td>
-              <%= fg.check_box :win %>
-        </td>
-        <td>
-          &nbsp;
-        </td>
-      </tr>
 
-      <%= render "player_fields", f: f %>
+      <%= f.fields_for :player do |builder| %>
+        <%= render 'player_fields', f: builder %>
+      <% end %>
+
 
       </tbody>
     </table>
     <%= link_to_add_fields "Add Player", f, :players %>
 
-          <% end %>
 <% end %>
 
 

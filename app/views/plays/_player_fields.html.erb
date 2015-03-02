@@ -1,17 +1,15 @@
 <tr class="fields">
   <td></td>
-  <%= fields_for :player do |fg| %>
       <td>
-        <%= fg.text_field :name, :class => 'form-control input-xs play-name'%>
+        current_user.name
       </td>
       <td>
-        <%= fg.text_field :score, :class => 'form-control input-xs'%>
+        <%= f.text_field :score, :class => 'form-control input-xs'%>
       </td>
       <td>
-        <%= fg.check_box :win %>
+        <%= f.check_box :win %>
       </td>
       <td>
         <%= link_to_remove_fields "&times".html_safe, f %>
       </td>
-  <% end %>
 </tr>

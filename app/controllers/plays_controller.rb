@@ -114,7 +114,7 @@ logger.debug "HERE: #{score = params[:player][:score]}"
   end
 
   def player_params
-    params.require(:player).permit(:score, :win) #:play_id, :user_id,
+    params.require(:player).permit(players_attributes: [:score, :win, :_destroy]) #:play_id, :user_id, :score, :win,
   end
 
 end
