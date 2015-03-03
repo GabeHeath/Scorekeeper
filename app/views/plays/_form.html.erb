@@ -1,49 +1,77 @@
-
-
-
 <%= form_for(@play) do |f| %>
-  <% if @play.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@play.errors.count, "error") %> prohibited this play from being saved:</h2>
+    <% if @play.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@play.errors.count, "error") %> prohibited this play from being saved:</h2>
 
-      <ul>
-      <% @play.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-    <%= fields_for :game do |fg| %>
-        <label>Game:</label>
-        <%= fg.text_field :name, :id => 'bgg-game-search', :class => 'form-control', :placeholder => 'Search for...'%>
+          <ul>
+            <% @play.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
     <% end %>
 
-<br>
 
-  <div class="col-md-6">
-      <label>Date:</label>
-      <%= f.text_field :date, :class => 'datepicker form-control' %>
-  </div>
 
-    <div class="col-md-6">
-      <label>Location:</label>
-      <%= f.text_field :location, :id => 'new-play-location', :class => 'form-control' %>
+    <div class="row">
+      <div class="new-play-form col-md-5 col-md-offset-1">
+
+        <%= fields_for :game do |fg| %>
+            <label>Game:</label>
+            <%= fg.text_field :name, :id => 'bgg-game-search', :class => 'form-control', :placeholder => 'Search for...' %>
+        <% end %>
+
+        <br>
+
+        <div class="col-md-6">
+          <label>Date:</label>
+          <%= f.text_field :date, :class => 'datepicker form-control' %>
+        </div>
+
+        <div class="col-md-6">
+          <label>Location:</label>
+          <%= f.text_field :location, :id => 'new-play-location', :class => 'form-control' %>
+        </div>
+
+        <br><br><br><br>
+
+        <div class="field">
+          <%= f.label :notes %><br>
+          <%= f.text_area :notes, :rows => 5, :class => "form-control" %>
+        </div>
+
+      </div>
+
+      <div class="col-md-5">
+      <table id="players-table" class="table table-hover">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Score</th>
+          <th>Win</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="fields stripe">
+          <td>1</td>
+          <td><%= current_user.name %></td>
+          <td>
+            <%= text_field_tag 'score[]', nil, :class=>"form-control input-xs" %>
+          </td>
+          <td>
+            <%= hidden_field_tag 'win[]', 0 %>
+            <%= check_box_tag 'win[]', 1 %>
+          </td>
+          <td>&nbsp;</td>
+        </tbody>
+      </table>
+      <%= link_to_add_fields "Add Player", f, :players %>
+        </div>
+
+
     </div>
 
-<br><br><br><br>
-
-  <div class="field">
-    <%= f.label :notes %><br>
-    <%= f.text_area :notes, :rows => 5, :class => "form-control" %>
-  </div>
-
-    </div><!-- Closing div inside form-->
-
-
-
-    <div class="col-md-5">
-      <%= render 'player_expansion_form' %>
-    </div>
 
 <% end %>

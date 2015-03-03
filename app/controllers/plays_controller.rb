@@ -38,6 +38,7 @@ class PlaysController < ApplicationController
   def create
 
     @play = Play.new(play_params)
+    @play.created_by = current_user.id
 
     @game = Game.new(game_params)
       # Parse and set game_id
@@ -47,15 +48,32 @@ class PlaysController < ApplicationController
 
         @play.game_id = @new_game.id
 
-    @player = Player.new(player_params)
 
-logger.debug "HERE: #{score = params[:player][:score]}"
 
     respond_to do |format|
       if @play.save
+        name = params[:name].unshift(current_user.name)
+        name.each_with_index do |name, index|
+          @player = Player.new
+          if index == 0
+            @player.user_id = current_user.id
+          else
+            friend_user_id = get_friend_user_id(name, current_user.friends)
+            logger.debug "EQUALS: #{friend_user_id}"
+            if friend_user_id
+              logger.debug "NOT NIL"
+              @player.user_id = friend_user_id
+            else
+              logger.debug "NON FRIEND"
+              @player.non_friend_name = name
+            end
+          end
+          @player.play_id = @play.id
+          @player.score = params[:score][index]
+          @player.win = params[:win][index]
+          @player.save
+        end
 
-        @player.user_id = current_user.id
-        @player.play_id = @play.id
 
 
 
@@ -114,7 +132,16 @@ logger.debug "HERE: #{score = params[:player][:score]}"
   end
 
   def player_params
-    params.require(:player).permit(players_attributes: [:score, :win, :_destroy]) #:play_id, :user_id, :score, :win,
+    params.require(:player).permit(:score, :win, :_destroy) #:play_id, :user_id, :score, :win,
+  end
+
+  def get_friend_user_id(player_name, users_friends)
+    users_friends.each do |friend|
+      if friend.name == player_name
+        return friend.id
+      end
+    end
+    return
   end
 
 end

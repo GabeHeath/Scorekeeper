@@ -19,14 +19,14 @@
 //= require bootstrap-datepicker
 //= require_tree .
 
-$( document ).ready(function() {
+$(document).ready(function () {
     $('#homepage-learn-more').on('click', function () {
-        $('#hotness-thumbnails')[0].scrollIntoView( true );
+        $('#hotness-thumbnails')[0].scrollIntoView(true);
     });
 });
 
 // Hides images if bgg api returns broken link
-$( document ).ready(function() {
+$(document).ready(function () {
     $("img").error(function () {
         $(this).hide();
     });
@@ -36,33 +36,32 @@ $( document ).ready(function() {
 var playerCount = 1;
 
 function remove_player(link) {
-    $(link).prev("input[type=hidden]").val("1");
-    $(link).closest(".fields").hide();
+    $(link).closest(".fields").remove();
     playerCount--;
     renumberRows();
     stripeRows()
 }
 
 function renumberRows() {
-    $('#players-table tr:visible').each(function(index, el){
-        $(this).children('td:first').first().text(function(i,t){
+    $('#players-table tr:visible').each(function (index, el) {
+        $(this).children('td:first').first().text(function (i, t) {
             return index++;
         });
     });
 }
 
 function stripeRows() {
-    $('#players-table tr:visible').each(function(index, el){
-        $(this).toggleClass("stripe", (index+1)%2 == 0);
+    $('#players-table tr:visible').each(function (index, el) {
+        $(this).toggleClass("stripe", (index + 1) % 2 == 0);
     });
 }
 
-$( document ).ready(function() {
+$(document).ready(function () {
     $(".add_fields").click(function (event) {
-    //$('form').on('click', '.add_fields', function (event) {
+        //$('form').on('click', '.add_fields', function (event) {
         var regexp, time;
         time = new Date().getTime();
-        regexp = new RegExp($(this).data('id'), 'g');
+        regexp = new RegExp('blank', 'g');
         $('#players-table tr:last').after($(this).data('fields').replace(regexp, time));
         playerCount++;
         $('#players-table tr:last td:first').text(playerCount);

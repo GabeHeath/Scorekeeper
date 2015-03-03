@@ -39,12 +39,13 @@ ActiveRecord::Schema.define(version: 20150223212616) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.integer  "play_id",    limit: 4,                 null: false
-    t.integer  "user_id",    limit: 4,                 null: false
-    t.integer  "score",      limit: 4
-    t.boolean  "win",        limit: 1, default: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "play_id",         limit: 4,                   null: false
+    t.integer  "user_id",         limit: 4
+    t.integer  "score",           limit: 4
+    t.boolean  "win",             limit: 1,   default: false
+    t.string   "non_friend_name", limit: 255
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   create_table "plays", force: :cascade do |t|
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150223212616) do
     t.text     "notes",      limit: 65535
     t.string   "location",   limit: 255
     t.datetime "created_at",               null: false
+    t.integer  "created_by", limit: 4,     null: false
     t.datetime "updated_at",               null: false
   end
 

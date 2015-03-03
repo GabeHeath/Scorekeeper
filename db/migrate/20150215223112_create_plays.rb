@@ -6,6 +6,7 @@ class CreatePlays < ActiveRecord::Migration
       t.text :notes
       t.string :location
       t.datetime :created_at
+      t.integer :created_by, :null => false
 
       t.timestamps null: false
     end

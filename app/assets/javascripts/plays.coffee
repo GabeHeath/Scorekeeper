@@ -14,11 +14,3 @@ jQuery ->
     $('#new_play').submit()
     return
   return
-
-
-#  $('form').on 'click', '.add_fields', (event) ->
-#    alert('FUCK')
-#    time = new Date().getTime()
-#    regex = new RegExp($(this).data('id'), 'g')
-#    $(this).before($(this).data('fields').replace(regexp, time))
-#    event.preventDefault()

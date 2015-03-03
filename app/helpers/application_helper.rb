@@ -35,7 +35,7 @@ module ApplicationHelper
 
 
   def link_to_remove_fields(name, f)
-    f.hidden_field(:_destroy) + link_to(name, '#', onclick: "remove_player(this)", :class=>'close')
+    link_to(name, '#', onclick: "remove_player(this)", :class=>'close')
   end
 
   def link_to_add_fields(name, f, association)

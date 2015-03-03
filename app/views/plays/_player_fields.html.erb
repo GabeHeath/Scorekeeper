@@ -1,15 +1,16 @@
 <tr class="fields">
   <td></td>
-      <td>
-        current_user.name
-      </td>
-      <td>
-        <%= f.text_field :score, :class => 'form-control input-xs'%>
-      </td>
-      <td>
-        <%= f.check_box :win %>
-      </td>
-      <td>
-        <%= link_to_remove_fields "&times".html_safe, f %>
-      </td>
+  <td>
+    <%= text_field_tag 'name[]', nil, :class => 'form-control input-xs play-name'%>
+  </td>
+  <td>
+    <%= text_field_tag 'score[]', nil, :class => 'form-control input-xs'%>
+  </td>
+  <td>
+    <%= hidden_field_tag 'win[]', 0 %>
+    <%= check_box_tag 'win[]', 1 %>
+  </td>
+  <td>
+    <%= link_to_remove_fields "&times".html_safe, f %>
+  </td>
 </tr>
