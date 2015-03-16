@@ -353,7 +353,7 @@ ul.ui-autocomplete {
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
-  width: 30%;
+  //width: 30%;
 }
 
 .play-name {
@@ -366,6 +366,10 @@ ul.ui-autocomplete {
 
 .stripe {
   background-color: #f9f9f9;
+}
+
+.table-main-column {
+  width: 50%;
 }
 
 

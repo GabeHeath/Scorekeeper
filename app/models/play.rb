@@ -5,6 +5,8 @@ class Play < ActiveRecord::Base
   has_many :players, dependent: :destroy
   has_many :users, through: :players
 
+  has_many :games
+
 
   accepts_nested_attributes_for :game
   accepts_nested_attributes_for :players, :reject_if => lambda { |a| a[:name].blank? }

@@ -4,13 +4,27 @@
     <%= text_field_tag 'name[]', nil, :class => 'form-control input-xs play-name'%>
   </td>
   <td>
-    <%= text_field_tag 'score[]', nil, :class => 'form-control input-xs'%>
+    <%= text_field_tag 'score[]', nil, :class => 'form-control input-xs', :autocomplete => :off%>
+  </td>
+  <td>
+    <select class="team-selector" name="team[]">
+      <option value="none" data-color="rgba(0,0,0,0)" selected>none</option>
+      <option value="#d53e4f" data-color="#d53e4f">#d53e4f</option>
+      <option value="#f46d43" data-color="#f46d43">#f46d43</option>
+      <option value="#fdae61" data-color="#fdae61">#fdae61</option>
+      <option value="#fee08b" data-color="#fee08b">#fee08b</option>
+      <option value="#e6f598" data-color="#e6f598">#e6f598</option>
+      <option value="#abdda4" data-color="#abdda4">#abdda4</option>
+      <option value="#66c2a5" data-color="#66c2a5">#F5A0A0</option>
+      <option value="#3288bd" data-color="#3288bd">#3288bd</option>
+    </select>
+    <script>$(".team-selector").colorselector();</script>
   </td>
   <td>
     <%= hidden_field_tag 'win[]', 0 %>
     <%= check_box_tag 'win[]', 1 %>
   </td>
   <td>
-    <%= link_to_remove_fields "&times".html_safe, f %>
+    <%= link_to_remove_player "&times".html_safe, f %>
   </td>
 </tr>

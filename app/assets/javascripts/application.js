@@ -34,15 +34,23 @@ $(document).ready(function () {
 
 
 var playerCount = 1;
+var expansionCount = 1;
 
 function remove_player(link) {
     $(link).closest(".fields").remove();
     playerCount--;
-    renumberRows();
-    stripeRows()
+    renumberPlayerRows();
+    stripePlayerRows()
 }
 
-function renumberRows() {
+function remove_expansion(link) {
+    $(link).closest(".fields").remove();
+    expansionCount--;
+    renumberExpansionRows();
+    stripeExpansionRows()
+}
+
+function renumberPlayerRows() {
     $('#players-table tr:visible').each(function (index, el) {
         $(this).children('td:first').first().text(function (i, t) {
             return index++;
@@ -50,22 +58,46 @@ function renumberRows() {
     });
 }
 
-function stripeRows() {
+function stripePlayerRows() {
     $('#players-table tr:visible').each(function (index, el) {
         $(this).toggleClass("stripe", (index + 1) % 2 == 0);
     });
 }
 
+function renumberExpansionRows() {
+    $('#expansion-table tr:visible').each(function (index, el) {
+        $(this).children('td:first').first().text(function (i, t) {
+            return index++;
+        });
+    });
+}
+
+function stripeExpansionRows() {
+    $('#expansion-table tr:visible').each(function (index, el) {
+        $(this).toggleClass("stripe", (index + 1) % 2 == 0);
+    });
+}
+
 $(document).ready(function () {
-    $(".add_fields").click(function (event) {
-        //$('form').on('click', '.add_fields', function (event) {
+    $(".add_player").click(function (event) {
         var regexp, time;
         time = new Date().getTime();
         regexp = new RegExp('blank', 'g');
         $('#players-table tr:last').after($(this).data('fields').replace(regexp, time));
         playerCount++;
         $('#players-table tr:last td:first').text(playerCount);
-        stripeRows();
+        stripePlayerRows();
+        return event.preventDefault();
+    });
+
+    $(".add_expansion").click(function (event) {
+        var regexp, time;
+        time = new Date().getTime();
+        regexp = new RegExp('blank', 'g');
+        $('#expansion-table tr:last').after($(this).data('fields').replace(regexp, time));
+        expansionCount++;
+        $('#expansion-table tr:last td:first').text(expansionCount);
+        stripeExpansionRows();
         return event.preventDefault();
     });
 });

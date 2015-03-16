@@ -1,4 +1,8 @@
-<%= javascript_include_tag "assets/play_players_expansions" %>
+<%= javascript_include_tag "play_players_expansions.js" %>
+<%= javascript_include_tag "bootstrap-colorselector.js" %>
+<%= stylesheet_link_tag "bootstrap-colorselector.css" %>
+
+
 
 <div class="page-wrap">
 
@@ -14,24 +18,11 @@
   <div class="content">
 
 
-
-      <%= render 'form' %>
-
+    <%= render 'form' %>
 
 
 
-    <br>
-
-    <div class="row">
-<div class="new-play-form col-md-5 col-md-offset-1">
-  <button id="submit-play" class="btn btn-primary btn-block">Create Play</button>
-  <%= link_to 'Cancel', plays_path, :class => "btn btn-default btn-block" %>
-</div>
-      </div>
-
-
-
-
-  </div><!-- content -->
+  </div>
+  <!-- content -->
 </div> <!-- page-wrapper -->
 

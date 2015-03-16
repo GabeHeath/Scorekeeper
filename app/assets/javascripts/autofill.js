@@ -16,3 +16,9 @@ $(document).on("click", ".play-name", function(e) {
         source: "/autofill/player" //availableTags
     });
 });
+
+$(document).on("click", ".expansion-name", function(e) {
+    $( this ).autocomplete({
+        source: "/autofill/bgg" //availableTags
+    });
+});

@@ -25,7 +25,7 @@
 
         <div class="col-md-6">
           <label>Date:</label>
-          <%= f.text_field :date, :class => 'datepicker form-control' %>
+          <%= f.text_field :date, :class => 'datepicker form-control', :autocomplete => :off %>
         </div>
 
         <div class="col-md-6">
@@ -40,35 +40,108 @@
           <%= f.text_area :notes, :rows => 5, :class => "form-control" %>
         </div>
 
+        <br>
+
+
+
+          <div class="col-md-12">
+            <button id="submit-play" class="btn btn-primary btn-block">Create Play</button>
+            <%= link_to 'Cancel', plays_path, :class => "btn btn-default btn-block" %>
+          </div>
+
+
       </div>
 
+
       <div class="col-md-5">
-      <table id="players-table" class="table table-hover">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Player</th>
-          <th>Score</th>
-          <th>Win</th>
-          <th>&nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="fields stripe">
-          <td>1</td>
-          <td><%= current_user.name %></td>
-          <td>
-            <%= text_field_tag 'score[]', nil, :class=>"form-control input-xs" %>
-          </td>
-          <td>
-            <%= hidden_field_tag 'win[]', 0 %>
-            <%= check_box_tag 'win[]', 1 %>
-          </td>
-          <td>&nbsp;</td>
-        </tbody>
-      </table>
-      <%= link_to_add_fields "Add Player", f, :players %>
-        </div>
+
+
+
+
+
+
+        <table id="players-table" class="table table-hover">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Team</th>
+            <th>Win</th>
+            <th>&nbsp;</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="fields stripe">
+            <td>1</td>
+            <td class="table-main-column"><%= current_user.name %></td>
+            <td>
+              <%= text_field_tag 'score[]', nil, :class => "form-control input-xs", :autocomplete => :off %>
+            </td>
+            <td>
+              <select class="team-selector" name="team[]">
+                <option value="none" data-color="rgba(0,0,0,0)" selected>none</option>
+                <option value="#d53e4f" data-color="#d53e4f">#d53e4f</option>
+                <option value="#f46d43" data-color="#f46d43">#f46d43</option>
+                <option value="#fdae61" data-color="#fdae61">#fdae61</option>
+                <option value="#fee08b" data-color="#fee08b">#fee08b</option>
+                <option value="#e6f598" data-color="#e6f598">#e6f598</option>
+                <option value="#abdda4" data-color="#abdda4">#abdda4</option>
+                <option value="#66c2a5" data-color="#66c2a5">#F5A0A0</option>
+                <option value="#3288bd" data-color="#3288bd">#3288bd</option>
+              </select>
+              <script>$(".team-selector").colorselector();</script>
+            </td>
+            <td>
+              <%= hidden_field_tag 'win[]', 0 %>
+              <%= check_box_tag 'win[]', 1 %>
+            </td>
+            <td>&nbsp;</td>
+          </tbody>
+        </table>
+        <%= link_to_add_fields "Add Player", f, :players %>
+
+
+<br><hr>
+
+
+
+        <table id="expansion-table" class="table table-hover">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Expansion</th>
+            <th>&nbsp;</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="fields stripe">
+            <td>1</td>
+            <td>
+              <%= text_field_tag 'expansion[]', nil, :class => "expansion-name form-control input-xs", :autocomplete => :off %>
+            </td>
+            <td>
+              <%= link_to_remove_expansion "&times".html_safe, f %>
+            </td>
+          </tbody>
+        </table>
+
+        <%= link_to_add_fields "Add Expansion", f, :games %>
+
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+    </div>
+
 
 
     </div>

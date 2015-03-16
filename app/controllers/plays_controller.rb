@@ -43,36 +43,57 @@ class PlaysController < ApplicationController
     @game = Game.new(game_params)
       # Parse and set game_id
       data = Bgg.bgg_get_name_and_id((@game.name).to_s) #Returns array of 2 if name user typed doesn't exist or api failed. Returns 3 if found in BGG database.
-      attributes = {name: data[0], year: data[1], bgg_id: data[2], game_type: 'primary'}
+      attributes = {name: data[0], year: data[1], bgg_id: data[2]}
       @new_game = Game.where(attributes).first_or_create
 
         @play.game_id = @new_game.id
 
 
-
     respond_to do |format|
       if @play.save
-        name = params[:name].unshift(current_user.name)
+        if params[:name].nil?
+          name = [current_user.name]
+        else
+          name = params[:name].unshift(current_user.name)
+        end
+
         name.each_with_index do |name, index|
           @player = Player.new
           if index == 0
             @player.user_id = current_user.id
           else
             friend_user_id = get_friend_user_id(name, current_user.friends)
-            logger.debug "EQUALS: #{friend_user_id}"
             if friend_user_id
-              logger.debug "NOT NIL"
               @player.user_id = friend_user_id
             else
-              logger.debug "NON FRIEND"
               @player.non_friend_name = name
             end
           end
           @player.play_id = @play.id
           @player.score = params[:score][index]
           @player.win = params[:win][index]
+          @player.team = params[:team][index]
           @player.save
         end
+
+
+
+        expansions = params[:expansion]
+        expansions.each_with_index do |expansion, index|
+          @expansion = Expansion.new
+
+          data = Bgg.bgg_get_name_and_id(expansions[index])
+          attributes = {name: data[0], year: data[1], bgg_id: data[2]}
+          @new_expansion = Expansion.where(attributes).first_or_create
+
+          @play_expansion = PlayExpansion.new
+
+          @play_expansion.play_id = @play.id
+          @play_expansion.expansion_id = @new_expansion.id
+          @play_expansion.save
+        end
+
+
 
 
 

@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223212616) do
+ActiveRecord::Schema.define(version: 20150316203625) do
 
   create_table "collections", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "game_id",    limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "expansions", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.integer  "year",       limit: 4
+    t.integer  "bgg_id",     limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -33,7 +41,13 @@ ActiveRecord::Schema.define(version: 20150223212616) do
     t.string   "name",       limit: 255, null: false
     t.integer  "year",       limit: 4
     t.integer  "bgg_id",     limit: 4
-    t.string   "game_type",  limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "play_expansions", force: :cascade do |t|
+    t.integer  "play_id",      limit: 4
+    t.integer  "expansion_id", limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -44,6 +58,7 @@ ActiveRecord::Schema.define(version: 20150223212616) do
     t.integer  "score",           limit: 4
     t.boolean  "win",             limit: 1,   default: false
     t.string   "non_friend_name", limit: 255
+    t.string   "team",            limit: 255
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
   end

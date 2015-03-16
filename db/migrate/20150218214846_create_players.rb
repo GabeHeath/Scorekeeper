@@ -6,6 +6,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.integer :score
       t.boolean :win, :default => 0
       t.string :non_friend_name
+      t.string :team
 
       t.timestamps null: false
     end
