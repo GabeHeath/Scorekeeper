@@ -1,10 +1,5 @@
 class Expansion < ActiveRecord::Base
-
-  has_many :plays
-  has_many :users, :through => :plays
-
-  #un tested but feel pretty good about
-  has_many :collections
-  has_many :players, through: :collections
+  has_many :plays, through: :play_expansions
+  has_many :play_expansions
 
 end

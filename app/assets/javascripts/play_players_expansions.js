@@ -27,12 +27,8 @@ $(document).ready(function () {
 
 function findTeam(color, row) {
     var toReturn;
-    //console.log(color);
-    //console.log(row);
     $(".team-selector").each(function() {
-        console.log($(this).val());
         if ($(this).val() == color) {
-            //console.log($(this).closest('tr'));
             toReturn = $(this).closest('tr');
             return false;
         }

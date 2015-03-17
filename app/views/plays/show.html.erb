@@ -31,10 +31,52 @@
       <%= @play.created_at %>
     </p>
 
+    <p>
+      <strong>Location:</strong>
+      <%= @play.location %>
+    </p>
+
+    <p>
+      <strong>Notes:</strong>
+      <%= @play.notes %>
+    </p>
+
+    <p>
+      <strong>Game:</strong>
+      <%= @play.game.name %>
+    </p>
+
+    <p>
+      <strong>Players:</strong>
+
+      <% @play.players.each do |player| %>
+          <% if player.non_friend_name != nil %>
+              <%= player.non_friend_name %>
+          <% else %>
+              <%= player.user.name %>
+          <% end %>
+
+          <%= player.score %>
+          <%= player.win %>
+          <%= player.team %>
+          <br>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Expansions:</strong>
+      <% @play.expansions.each do |expansion| %>
+         <%= expansion.name %>
+          <br>
+      <% end %>
+    </p>
+
     <%= link_to 'Edit', edit_play_path(@play) %> |
     <%= link_to 'Back', plays_path %>
 
 
-  </div><!-- content -->
+  </div>
+  <!-- content -->
 </div> <!-- page-wrapper -->
+
 
