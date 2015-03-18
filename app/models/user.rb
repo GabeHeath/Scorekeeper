@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :players
   has_many :plays, through: :players
 
+  has_many :comments
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, and :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable, :confirmable,

@@ -9,6 +9,8 @@ class Play < ActiveRecord::Base
   has_many :expansions, through: :play_expansions
   has_many :play_expansions
 
+  has_many :comments, dependent: :destroy
+
 
   accepts_nested_attributes_for :game
   accepts_nested_attributes_for :players, :reject_if => lambda { |a| a[:name].blank? }

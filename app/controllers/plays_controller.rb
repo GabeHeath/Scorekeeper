@@ -12,7 +12,7 @@ class PlaysController < ApplicationController
   def show
     @plays = current_user.plays
     if user_signed_in?
-      unless current_user.id == @play.user_ids[0]
+      unless @play.user_ids.include? current_user.id
         flash[:error] = "The page you requested does not exist."
         redirect_to plays_url
         return

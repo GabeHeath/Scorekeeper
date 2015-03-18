@@ -75,6 +75,15 @@
     <%= link_to 'Back', plays_path %>
 
 
+    <div id="comments">
+      <h2><%= @play.comments.count %> Comments</h2>
+      <%= render @play.comments %>
+
+      <h3>Add a comment</h3>
+      <%= render "comments/form" %>
+    </div>
+
+
   </div>
   <!-- content -->
 </div> <!-- page-wrapper -->

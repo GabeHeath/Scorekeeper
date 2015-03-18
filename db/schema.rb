@@ -11,13 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316203625) do
+ActiveRecord::Schema.define(version: 20150318143955) do
 
   create_table "collections", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "game_id",    limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "play_id",    limit: 4
+    t.text     "comment",    limit: 65535
+    t.integer  "score",      limit: 1
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "expansions", force: :cascade do |t|

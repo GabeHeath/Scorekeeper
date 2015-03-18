@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   resources :players
 
-    resources :plays
+  resources :plays do
+    resources :comments
+  end
 
-    resources :games
+  resources :games
 
   devise_for :users,
              controllers: {omniauth_callbacks: "omniauth_callbacks"}
@@ -16,11 +18,6 @@ Rails.application.routes.draw do
     root :to => 'pages#main', as: :authenticated_root
   end
   root :to => 'pages#home'
-
-
-
-
-
 
 
   get 'main' => "pages#main", as: :main
