@@ -5,7 +5,7 @@ class Play < ActiveRecord::Base
   has_many :players, dependent: :destroy
   has_many :users, through: :players
 
-  has_many :games
+  has_many :games, through: :players
   has_many :expansions, through: :play_expansions
   has_many :play_expansions
 

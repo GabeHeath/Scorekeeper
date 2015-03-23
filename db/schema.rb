@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 20150318143955) do
     t.integer  "user_id",    limit: 4
     t.integer  "play_id",    limit: 4
     t.text     "comment",    limit: 65535
-    t.integer  "score",      limit: 1
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "reported",   limit: 1,     default: 0
+    t.boolean  "edited",     limit: 1,     default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "expansions", force: :cascade do |t|

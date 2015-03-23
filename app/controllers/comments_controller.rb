@@ -5,7 +5,6 @@ class CommentsController < ApplicationController
     @comment = @play.comments.create(comment_params)
 
     @comment.user_id = current_user.id
-    @comment.score = 0
 
     @comment.save
 
@@ -37,6 +36,16 @@ class CommentsController < ApplicationController
 
     redirect_to play_path(@play), notice: 'Comment was successfully updated.'
 
+  end
+
+
+  def report
+    @play = Play.find(params[:play_id])
+    @comment = Comment.find(params[:id])
+    @comment.reported = @comment.reported + 1
+    @comment.save
+
+    redirect_to play_path(@play), notice: 'Comment was successfully reported.'
   end
 
   private

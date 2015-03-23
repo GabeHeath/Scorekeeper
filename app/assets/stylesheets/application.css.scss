@@ -344,6 +344,7 @@ ul.ui-autocomplete {
   background-color: rgb(237, 237, 237);
   padding: 20px;
   border-radius: 5px;
+  //border: 1px solid lightgray;
 }
 
 
@@ -422,10 +423,129 @@ ul.ui-autocomplete {
       float: right;
       margin-top: 30px;
     }
+
+    .comment-dropdown {
+      background: none;
+      border: none;
+      border-radius: 20px;
+    }
+
+    .comment-cog {
+      color: darkgray;
+      font-size: 20px;
+    }
+
+    .comment-cog:hover {
+      color: #333333;
+    }
+
+    .comment-btn-container {
+      float: right;
+      display:none;
+      text-align: right;
+    }
+
+    @media (max-width: 767px) {
+      .comment-btn-container {
+        display:block;
+      }
+    }
+
+  }
+
+  @media (min-width: 767px) {
+    .comment:hover {
+      .comment-btn-container {
+        display: block;
+        -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+        -o-animation: fadein 1s; /* Opera < 12.1 */
+        animation: fadein 1s;
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Firefox < 16 */
+      @-moz-keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Safari, Chrome and Opera > 12.1 */
+      @-webkit-keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Internet Explorer */
+      @-ms-keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Opera < 12.1 */
+      @-o-keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    }
   }
   input[type="text"], textarea {
     width: 50%;
   }
+}
+
+
+.play-show-game-name, .play-show-game-name:visited {
+  color:white;
+}
+
+.play-show-game-name:hover {
+  color:white;
+  text-decoration: none;
+  border-bottom: 2px dotted #ffffff;
+}
+
+
+.play-show-sub-header {
+  margin-top: 79px;
+  margin-bottom: -79px;
+  background-color: rgb(239,239,239);
+  text-align: center;
+  padding: 5px;
+  color: rgb(113, 113, 113);
+  border-bottom: 1px solid lightgray;
+}
+
+
+.play-show-created-by {
+  position: absolute;
+  right: 10px;
+  color: gray; margin-right: 10px;
 }
 
 

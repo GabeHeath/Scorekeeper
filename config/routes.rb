@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :players
 
   resources :plays do
-    resources :comments
+    resources :comments do
+      get 'report', :on => :member
+    end
   end
 
   resources :games
@@ -30,7 +32,6 @@ Rails.application.routes.draw do
     get 'location', :on => :collection
     get 'player', :on => :collection
   end
-  #resources :autofill
 
   resources :friends, :controller => 'friendships', :except => [:show, :edit, :new] do
     put "block", :on => :member

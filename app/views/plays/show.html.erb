@@ -5,77 +5,112 @@
       ☰
     </label>
 
-    <h1>Game Library</h1>
+    <h1><%= link_to @play.game.name, game_path(@play.game.id), :class => "play-show-game-name" %></h1>
   </header>
+
+  <div class="play-show-sub-header">
+    <b><%= @play.date.strftime("%A %b %e, %Y") %> at <%= @play.location %></b>
+    <span class="play-show-created-by">Logged by: <%= find_who_created_play(@play.created_by) %></span>
+  </div>
 
 
   <div class="content">
 
-    <p>
-      <strong>Game:</strong>
-      <%= @play.game_id %>
-    </p>
+    <div class="col-md-3">
 
-    <p>
-      <strong>Date:</strong>
-      <%= @play.date %>
-    </p>
-
-    <p>
-      <strong>Notes:</strong>
-      <%= @play.notes %>
-    </p>
-
-    <p>
-      <strong>Created at:</strong>
-      <%= @play.created_at %>
-    </p>
-
-    <p>
-      <strong>Location:</strong>
-      <%= @play.location %>
-    </p>
-
-    <p>
-      <strong>Notes:</strong>
-      <%= @play.notes %>
-    </p>
-
-    <p>
-      <strong>Game:</strong>
-      <%= @play.game.name %>
-    </p>
-
-    <p>
-      <strong>Players:</strong>
-
-      <% @play.players.each do |player| %>
-          <% if player.non_friend_name != nil %>
-              <%= player.non_friend_name %>
+      <div class="new-play-form">
+        <p>
+          <strong>Expansions:</strong>
+        <ul>
+          <% if !@play.expansions.blank? %>
+              <% @play.expansions.each do |expansion| %>
+                  <li><%= expansion.name %></li>
+              <% end %>
           <% else %>
-              <%= player.user.name %>
+              <li>None</li>
           <% end %>
+        </ul>
+        </p>
+      </div>
 
-          <%= player.score %>
-          <%= player.win %>
-          <%= player.team %>
-          <br>
-      <% end %>
-    </p>
+      <br>
 
-    <p>
-      <strong>Expansions:</strong>
-      <% @play.expansions.each do |expansion| %>
-         <%= expansion.name %>
-          <br>
-      <% end %>
-    </p>
-
-    <%= link_to 'Edit', edit_play_path(@play) %> |
-    <%= link_to 'Back', plays_path %>
+      <div class="new-play-form">
+        <p>
+          <strong>Your History:</strong><br>
+        <ul>
+          <li>Best Score: <%= player_best_score(current_user.id, @play.game.id) %></li>
+          <li>Average Score: <%= player_average_score(current_user.id, @play.game.id) %></li>
+          <li>Lowest Score: <%= player_worst_score(current_user.id, @play.game.id) %></li>
+        </ul>
+        </p>
+      </div>
 
 
-    <div id="comments">
+      <br>
+
+      <div>
+        <%= link_to 'Back', plays_path, :class => "btn btn-default btn-block" %>
+        <%= link_to 'Delete', plays_path, :class => "btn btn-default btn-block" %>
+        <%= link_to 'Edit', edit_play_path(@play), :class => "btn btn-default btn-block" %>
+        <%= link_to 'Go to BGG Page', "https://boardgamegeek.com/boardgame/#{@play.game.bgg_id}", :class => "btn btn-info btn-block", :target => '_blank' %>
+
+      </div>
+
+
+    </div>
+
+    <div class="col-md-6">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Score</th>
+          <th>Win</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @play.players.each_with_index do |player, index| %>
+            <tr style="background-color: <%= player.team %>">
+              <td><%= index + 1 %></td>
+
+              <td><%= show_player_name(player.non_friend_name, player.user.try(:name)) %></td>
+
+              <td><%= player.score %></td>
+
+              <td><span class="<%= player_win(player.win) %>"></span></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="new-play-form">
+        <p>
+          <strong>Notes:</strong><br>
+          <% if !@play.notes.empty? %>
+              <%= simple_format(@play.notes) %>
+          <% else %>
+            <ul>
+              <li>None</li>
+            </ul>
+        <% end %>
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+    <br>
+
+
+    <div class="col-md-12" id="comments">
       <h2><%= @play.comments.count %> Comments</h2>
       <%= render @play.comments %>
 

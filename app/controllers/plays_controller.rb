@@ -80,17 +80,19 @@ class PlaysController < ApplicationController
 
         expansions = params[:expansion]
         expansions.each_with_index do |expansion, index|
-          @expansion = Expansion.new
+          unless expansion.blank?
+            @expansion = Expansion.new
 
-          data = Bgg.bgg_get_name_and_id(expansions[index])
-          attributes = {name: data[0], year: data[1], bgg_id: data[2]}
-          @new_expansion = Expansion.where(attributes).first_or_create
+            data = Bgg.bgg_get_name_and_id(expansions[index])
+            attributes = {name: data[0], year: data[1], bgg_id: data[2]}
+            @new_expansion = Expansion.where(attributes).first_or_create
 
-          @play_expansion = PlayExpansion.new
+            @play_expansion = PlayExpansion.new
 
-          @play_expansion.play_id = @play.id
-          @play_expansion.expansion_id = @new_expansion.id
-          @play_expansion.save
+            @play_expansion.play_id = @play.id
+            @play_expansion.expansion_id = @new_expansion.id
+            @play_expansion.save
+          end
         end
 
 

@@ -4,7 +4,8 @@ class CreateComments < ActiveRecord::Migration
       t.integer :user_id
       t.integer :play_id
       t.text :comment
-      t.integer :score, :limit => 1
+      t.integer :reported, :limit => 1, :default => 0
+      t.boolean :edited, :default => 0
 
       t.timestamps null: false
     end
