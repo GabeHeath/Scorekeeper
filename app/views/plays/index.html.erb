@@ -5,46 +5,58 @@
       ☰
     </label>
 
-    <h1>Game Library</h1>
+    <h1>List of Plays</h1>
   </header>
 
 
   <div class="content">
 
-    <h1>Listing Plays</h1>
-
-    <table>
-      <thead>
-      <tr>
-        <th>Game</th>
-        <th>Score</th>
-        <th>Date</th>
-        <th>Notes</th>
-        <th>Created at</th>
-        <th colspan="3"></th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @plays.each do |play| %>
-          <tr>
-            <td><%= play.game_id %></td>
-            <td><%= play.date %></td>
-            <td><%= play.notes %></td>
-            <td><%= play.created_at %></td>
-            <td><%= link_to 'Show', play %></td>
-            <td><%= link_to 'Edit', edit_play_path(play) %></td>
-            <td><%= link_to 'Destroy', play, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
+    <div style="margin-bottom:15px;" class="col-md-8 col-md-offset-2">
+      <%= form_tag plays_path, :method => "get" do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search..." %>
+            <span class="input-group-btn">
+        <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+      </span>
+          </div>
       <% end %>
-      </tbody>
-    </table>
+    </div>
 
-    <br>
+    <div class="col-md-10 col-md-offset-1">
 
-    <%= link_to 'New Play', new_play_path %>
+      <table id="play-table" class="table table-hover">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Game</th>
+          <th>Location</th>
+          <th>Players</th>
+          <th>Comments</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @plays.each do |play| %>
+            <tr data-link="<%= play_path(play.id) %>">
+              <td><%= play.date.strftime("%-m/%d/%y") %></td>
+              <td><%= play.game.name %></td>
+              <td><%= play.location %></td>
+              <td><%= play.players.count %></td>
+              <td><%= play.comments.count %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="col-md-12" style="text-align: center">
+      <%= will_paginate @posts, renderer: BootstrapPagination::Rails %><br>
+      <span style="color:darkgray; font-size:12px;"><%= page_entries_info(@posts, :model => 'play') %></span>
+    </div>
 
 
-  </div><!-- content -->
+  </div>
+  <!-- content -->
 </div> <!-- page-wrapper -->
 

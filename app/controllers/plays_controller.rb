@@ -4,7 +4,12 @@ class PlaysController < ApplicationController
   # GET /plays
   # GET /plays.json
   def index
-    @plays = current_user.plays
+    #@plays = current_user.plays.paginate(:page => params[:page], :per_page => 10).order('date DESC')
+    if params[:search]
+      @plays = current_user.plays.search(params[:search], params[:page]).paginate(page: params[:page], per_page: 10)
+    else
+      @plays = current_user.plays.paginate(:page => params[:page], :per_page => 10).order('date DESC')
+    end
   end
 
   # GET /plays/1

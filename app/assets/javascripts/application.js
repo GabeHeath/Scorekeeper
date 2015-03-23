@@ -100,4 +100,8 @@ $(document).ready(function () {
         stripeExpansionRows();
         return event.preventDefault();
     });
+
+    $("#play-table tr[data-link]").click(function() {
+        window.location = $(this).data("link")
+    })
 });

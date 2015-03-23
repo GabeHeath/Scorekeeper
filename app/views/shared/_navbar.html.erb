@@ -19,7 +19,8 @@
 
       <span class="navbar-right">
         <span class="navbar-text">Signed in as <%= current_user.name %></span>
-        <%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'btn btn-primary navbar-btn' %>
+        <%= link_to 'New play', new_play_path, :class => 'btn btn-primary' %>
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'btn btn-default navbar-btn' %>
       </span>
     </div><!--/.nav-collapse -->
 

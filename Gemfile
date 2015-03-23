@@ -37,6 +37,8 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'jquery-turbolinks'
 
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
