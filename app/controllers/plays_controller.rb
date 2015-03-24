@@ -4,12 +4,24 @@ class PlaysController < ApplicationController
   # GET /plays
   # GET /plays.json
   def index
-    #@plays = current_user.plays.paginate(:page => params[:page], :per_page => 10).order('date DESC')
-    if params[:search]
-      @plays = current_user.plays.search(params[:search], params[:page]).paginate(page: params[:page], per_page: 10)
+
+    if params[:per_page]
+      @per_page = params[:per_page]
     else
-      @plays = current_user.plays.paginate(:page => params[:page], :per_page => 10).order('date DESC')
+      @per_page = 10
     end
+
+    unless (params[:friend_name]).blank?
+      @friend_plays = Play.with_friend(current_user, params[:friend_name])
+      logger.debug "HERE: #{@friend_plays.inspect}"
+
+      @search = @friend_plays.ransack(params[:q])
+
+    else
+      @search = current_user.plays.ransack(params[:q])
+    end
+
+    @plays = @search.result.paginate(:page => params[:page], :per_page => @per_page).order('date DESC')
   end
 
   # GET /plays/1
@@ -46,12 +58,12 @@ class PlaysController < ApplicationController
     @play.created_by = current_user.id
 
     @game = Game.new(game_params)
-      # Parse and set game_id
-      data = Bgg.bgg_get_name_and_id((@game.name).to_s) #Returns array of 2 if name user typed doesn't exist or api failed. Returns 3 if found in BGG database.
-      attributes = {name: data[0], year: data[1], bgg_id: data[2]}
-      @new_game = Game.where(attributes).first_or_create
+    # Parse and set game_id
+    data = Bgg.bgg_get_name_and_id((@game.name).to_s) #Returns array of 2 if name user typed doesn't exist or api failed. Returns 3 if found in BGG database.
+    attributes = {name: data[0], year: data[1], bgg_id: data[2]}
+    @new_game = Game.where(attributes).first_or_create
 
-        @play.game_id = @new_game.id
+    @play.game_id = @new_game.id
 
 
     respond_to do |format|
@@ -82,7 +94,6 @@ class PlaysController < ApplicationController
         end
 
 
-
         expansions = params[:expansion]
         expansions.each_with_index do |expansion, index|
           unless expansion.blank?
@@ -99,11 +110,6 @@ class PlaysController < ApplicationController
             @play_expansion.save
           end
         end
-
-
-
-
-
 
 
         if @player.save
@@ -145,15 +151,15 @@ class PlaysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_play
-      @play = Play.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_play
+    @play = Play.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def play_params
-      params.require(:play).permit(:game_id, :date, :location, :notes, :created_at)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def play_params
+    params.require(:play).permit(:game_id, :date, :location, :notes, :created_at)
+  end
 
   def game_params
     params.require(:game).permit(:name, :year, :bgg_id, :game_type)

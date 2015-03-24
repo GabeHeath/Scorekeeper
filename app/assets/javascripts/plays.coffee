@@ -14,3 +14,7 @@ jQuery ->
     $('#new_play').submit()
     return
   return
+
+
+
+

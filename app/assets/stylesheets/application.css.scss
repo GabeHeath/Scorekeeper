@@ -570,6 +570,31 @@ ul.ui-autocomplete {
 }
 
 
+#advanced-search-btn {
+  cursor:pointer;
+  float:right;
+}
+
+
+
+
+
+
+#searchclear {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  height: 20px;
+  margin: auto;
+  font-size: 20px;
+  cursor: pointer;
+  color: #ccc;
+  z-index: 2;
+  margin-right: 75px;
+}
+
+
 
 
 

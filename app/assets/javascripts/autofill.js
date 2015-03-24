@@ -7,6 +7,10 @@ $(function() {
         source: "/autofill/location" //availableTags
     });
 
+    $( ".search-location" ).autocomplete({
+        source: "/autofill/location" //availableTags
+    });
+
 
 });
 

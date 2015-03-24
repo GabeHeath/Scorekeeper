@@ -105,3 +105,36 @@ $(document).ready(function () {
         window.location = $(this).data("link")
     })
 });
+
+
+
+$(document).ready(function() {
+    clearAdvancedSearcFields()
+
+    var advancedSearchOpen = false;
+    $('#advanced-search-btn').on('click', function() {
+        if (!advancedSearchOpen) {
+            $('#advanced-search').show();
+            $('#advanced-search-btn').attr('class', 'btn btn-default glyphicon glyphicon-chevron-up');
+            advancedSearchOpen = true;
+        } else {
+            $('#advanced-search').hide();
+            $('#advanced-search-btn').attr('class', 'btn btn-default glyphicon glyphicon-chevron-down');
+
+            clearAdvancedSearcFields()
+            advancedSearchOpen = false;
+        }
+
+    });
+
+    $("#searchclear").click(function(){
+        $("#play-search-bar").val('');
+    });
+});
+
+
+function clearAdvancedSearcFields() {
+    $('#start-date').val('')
+    $('#end-date').val('')
+    $('#location-search-bar').val('')
+}

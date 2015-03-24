@@ -15,9 +15,19 @@ class Play < ActiveRecord::Base
   accepts_nested_attributes_for :game
   accepts_nested_attributes_for :players, :reject_if => lambda { |a| a[:name].blank? }
 
-  def self.search(search, page)
-    games = Game.where('name LIKE ?', "%#{search}%").pluck(:id)
-    paginate(:page => page, :per_page => 10).where(:game_id => games).order('date DESC')
+  def self.with_friend(user, friend)
+    f = user.friends
+    f = f.where(:name => friend)
+    unless f.empty?
+      f_id = f.first.id
+      f_plays = Player.where(:user_id => f_id).pluck(:play_id)
+      user.plays.where(:id => f_plays) #shared_plays
+    else
+      return user.plays.where(:id => -1) #if friend not found then return blank object
+    end
+
+
 
   end
+
 end
