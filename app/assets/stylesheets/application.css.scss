@@ -186,6 +186,7 @@ a { text-decoration: none; }
   overflow: hidden;
   transition: width 0.3s ease;
   padding-top: 51px;
+  z-index: -1;
   a {
     display: block;
     background: linear-gradient(#3E3E3E, #383838);
