@@ -64,7 +64,9 @@
 
       <div>
         <%= link_to 'Back', plays_path, :class => "btn btn-primary btn-block" %>
-        <%= link_to 'Open BGG Page', "https://boardgamegeek.com/boardgame/#{@play.game.bgg_id}", :class => "btn btn-danger btn-block", :target => '_blank' %>
+        <% unless @play.game.bgg_id.blank? %>
+            <%= link_to 'Open BGG Page', "https://boardgamegeek.com/boardgame/#{@play.game.bgg_id}", :class => "btn btn-danger btn-block", :target => '_blank' %>
+        <% end %>
         <%= link_to 'Global Game Stats', game_path(@play.game.id), :class => "btn btn-info btn-block" %>
       </div>
 

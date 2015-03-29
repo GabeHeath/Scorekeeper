@@ -55,4 +55,71 @@ module PlaysHelper
     bgg = BggApi.new
   end
 
+  def edit_play_name(play)
+    name = play.game.name
+    year = play.game.year
+
+    if year.nil?
+      return "#{name}"
+    else
+      return "#{name} (#{year})"
+    end
+  end
+
+  def edit_get_player_name(player)
+    if player.user
+      return player.user.name
+    else
+      return player.non_friend_name
+    end
+  end
+
+  def edit_get_player_win(player)
+    return player.win #bool - T=check box F=don't check
+  end
+
+  def edit_play_colorpicker(player, color)
+    if player == color
+      return 'selected'
+    end
+  end
+
+  def is_play_field_editable(user_id, play, pid = nil, field_type = nil)
+    case field_type
+      when 'select-css'
+        if (user_id == play.created_by) || (user_id == pid)
+          return
+        else
+          return "display:none;"
+        end
+      when 't-f'
+        if (user_id == play.created_by) || (user_id == pid)
+          return true
+        else
+          return false
+        end
+      when 'date'
+        if (user_id == play.created_by)
+          return 'datepicker'
+        else
+          return
+        end
+      else
+        if (user_id == play.created_by) || (user_id == pid)
+          return false
+        else
+          return true
+        end
+    end
+
+
+
+
+    if user_id == play.created_by
+      return false
+    else
+      return true
+    end
+  end
+
 end

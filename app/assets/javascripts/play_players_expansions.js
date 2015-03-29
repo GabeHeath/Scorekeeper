@@ -12,10 +12,10 @@ $(document).ready(function () {
         var row = $( this ).closest('tr')
         if(color != "none") {
             row.css("background-color", color);
-            $('table > tbody > tr > td').css("border-top", "none");
+            $('#players-table > tbody > tr > td').css("border-top", "none");
         } else {
             row.removeAttr( "style" );
-            $('table > tbody > tr > td').removeAttr( "style" );
+            $('#players-table > tbody > tr > td').removeAttr( "style" );
         }
 
         row.insertAfter(findTeam(color, row));

@@ -1,6 +1,20 @@
-<h1>Editing Play</h1>
+<div class="page-wrap">
 
-<%= render 'form' %>
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
 
-<%= link_to 'Show', @play %> |
-<%= link_to 'Back', plays_path %>
+    <h1>Edit Play</h1>
+  </header>
+
+
+  <div class="content">
+    <% if is_play_field_editable(current_user.id, @play) %>
+        <div style="margin-bottom: 25px;" class="alert alert-info col-md-10 col-md-offset-1" role="alert">Since didn't create this play you only have permission to edit your own information. If you update this play all players will be notified.</div>
+    <% end %>
+
+    <%= render 'edit_form' %>
+
+  </div>
+</div>

@@ -11,4 +11,7 @@ class AutofillController < ApplicationController
     render json: Bgg.autofill_locations_and_players(params[:term], current_user.friends, 'name')
   end
 
+  def game
+    render json: Bgg.autofill_play_games_name(current_user, params[:term])
+  end
 end

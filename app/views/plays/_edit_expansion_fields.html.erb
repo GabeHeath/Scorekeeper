@@ -1,0 +1,11 @@
+<tr class="fields">
+  <td><%= i+1 %></td>
+  <td>
+    <%= hidden_field_tag 'eid[]', play_expansion.id %>
+    <%= play_expansion.expansion.name %>
+  </td>
+  <td>
+    <%= hidden_field_tag 'expansion_delete[]', 0 %>
+    <%= check_box_tag 'expansion_delete[]', 1, nil, :disabled => is_play_field_editable(current_user.id, @play) %>
+  </td>
+</tr>

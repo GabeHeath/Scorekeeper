@@ -109,7 +109,7 @@ $(document).ready(function () {
 
 
 $(document).ready(function() {
-    clearAdvancedSearcFields()
+    clearAdvancedSearchFields()
 
     var advancedSearchOpen = false;
     $('#advanced-search-btn').on('click', function() {
@@ -121,7 +121,7 @@ $(document).ready(function() {
             $('#advanced-search').hide();
             $('#advanced-search-btn').attr('class', 'btn btn-default glyphicon glyphicon-chevron-down');
 
-            clearAdvancedSearcFields()
+            clearAdvancedSearchFields()
             advancedSearchOpen = false;
         }
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
 });
 
 
-function clearAdvancedSearcFields() {
+function clearAdvancedSearchFields() {
     $('#start-date').val('')
     $('#end-date').val('')
     $('#location-search-bar').val('')

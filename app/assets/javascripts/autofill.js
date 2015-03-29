@@ -11,6 +11,10 @@ $(function() {
         source: "/autofill/location" //availableTags
     });
 
+    $( "#play-search-bar" ).autocomplete({
+        source: "/autofill/game" //availableTags
+    })
+
 
 });
 

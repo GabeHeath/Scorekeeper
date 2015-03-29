@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :collections
 
-  resources :players
+  #resources :players
 
   resources :plays do
     resources :comments do
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     get 'bgg', :on => :collection
     get 'location', :on => :collection
     get 'player', :on => :collection
+    get 'game', :on => :collection
   end
 
   resources :friends, :controller => 'friendships', :except => [:show, :edit, :new] do

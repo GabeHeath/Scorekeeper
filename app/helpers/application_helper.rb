@@ -35,11 +35,11 @@ module ApplicationHelper
 
 
   def link_to_remove_player(name, f)
-    link_to(name, '#', onclick: "remove_player(this)", :class=>'close')
+    link_to(name, '#players-table', onclick: "remove_player(this)", :class=>'close')
   end
 
   def link_to_remove_expansion(name, f)
-    link_to(name, '#', onclick: "remove_expansion(this)", :class=>'close')
+    link_to(name, '#expansion-table', onclick: "remove_expansion(this)", :class=>'close')
   end
 
   def link_to_add_fields(name, f, association)
@@ -51,9 +51,9 @@ module ApplicationHelper
 
     case association.to_s.singularize
       when 'player'
-        link_to(name, '#', class: "add_player btn btn-primary btn-block", data: {id: id, fields: fields.gsub("\n","")})
+        link_to(name, '#players-table', class: "add_player btn btn-primary btn-block", data: {id: id, fields: fields.gsub("\n","")})
       when 'game'
-        link_to(name, '#', class: "add_expansion btn btn-primary btn-block", data: {id: id, fields: fields.gsub("\n","")})
+        link_to(name, '#expansion-table', class: "add_expansion btn btn-primary btn-block", data: {id: id, fields: fields.gsub("\n","")})
     end
   end
 

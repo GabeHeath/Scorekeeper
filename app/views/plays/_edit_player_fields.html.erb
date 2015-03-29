@@ -1,0 +1,34 @@
+<tr class="fields" style="background-color:<%= player.team %>;">
+  <td><%= i + 1 %></td>
+  <td>
+    <%= hidden_field_tag 'pid[]', player.id %>
+    <%= edit_get_player_name(player) %>
+  </td>
+  <td>
+    <%= text_field_tag 'existing_score[]', nil, :class => 'form-control input-xs', :autocomplete => :off, :value => player.score, :readonly => is_play_field_editable(current_user.id, @play, player.user_id) %>
+  </td>
+  <td>
+        <select id="cpicker-<%= i+1 %>" class="existing-team-selector" name="existing_team[]" style="<%= is_play_field_editable(current_user.id, @play, player.user_id, 'select-css') %>" >
+          <option value="none" data-color="rgba(0,0,0,0)" <%= edit_play_colorpicker(player.team, 'none') %> >none</option>
+          <option value="#d53e4f" data-color="#d53e4f" <%= edit_play_colorpicker(player.team, '#d53e4f')%> >#d53e4f</option>
+          <option value="#f46d43" data-color="#f46d43" <%= edit_play_colorpicker(player.team, '#f46d43')%> >#f46d43</option>
+          <option value="#fdae61" data-color="#fdae61" <%= edit_play_colorpicker(player.team, '#fdae61')%> >#fdae61</option>
+          <option value="#fee08b" data-color="#fee08b" <%= edit_play_colorpicker(player.team, '#fee08b')%> >#fee08b</option>
+          <option value="#e6f598" data-color="#e6f598" <%= edit_play_colorpicker(player.team, '#e6f598')%> >#e6f598</option>
+          <option value="#abdda4" data-color="#abdda4" <%= edit_play_colorpicker(player.team, '#abdda4')%> >#abdda4</option>
+          <option value="#66c2a5" data-color="#66c2a5" <%= edit_play_colorpicker(player.team, '#F5A0A0')%> >#F5A0A0</option>
+          <option value="#3288bd" data-color="#3288bd" <%= edit_play_colorpicker(player.team, '#3288bd')%> >#3288bd</option>
+        </select>
+        <% if is_play_field_editable(current_user.id, @play, player.user_id, 't-f') %>
+            <script>$("#cpicker-<%= i+1 %>").colorselector();</script>
+        <% end %>
+  </td>
+  <td>
+    <%= hidden_field_tag 'existing_win[]', 0 %>
+    <%= check_box_tag 'existing_win[]', 1, edit_get_player_win(player), :disabled => is_play_field_editable(current_user.id, @play, player.user_id) %>
+  </td>
+  <td>
+    <%= hidden_field_tag 'existing_delete[]', 0 %>
+    <%= check_box_tag 'existing_delete[]', 1, nil, :disabled => is_play_field_editable(current_user.id, @play, player.user_id) %>
+  </td>
+</tr>

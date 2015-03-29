@@ -74,20 +74,6 @@ class Bgg < ActiveRecord::Base
 
 
   # Jquery-ui autocomplete calls this to get past locations. Sorts by most frequent and limited to query.
-  # def self.autofill_location(location, user)
-  #
-  #   location_array = Array.new
-  #
-  #   user_query = user.where("location LIKE ?", "%#{location}%")
-  #
-  #   saved_locations = user_query.group("location").order("count_location desc").count("location")
-  #
-  #   saved_locations.each do |loc|
-  #     location_array.push(loc.first)
-  #   end
-  #
-  #   return location_array
-  # end
 
   def self.autofill_locations_and_players(query, user, association)
 
@@ -105,7 +91,23 @@ class Bgg < ActiveRecord::Base
   end
 
 
+  def self.autofill_play_games_name(user, search_term)
+    game_names = Array.new
+
+    game_ids = user.plays.pluck(:game_id).uniq
+    games = Game.where("id IN(?) AND name LIKE ?", game_ids, "%#{search_term}%")
+
+    games.each do |game|
+      game_names.push(game.name)
+    end
+
+    return game_names
+
+  end
 
 
 
-end
+
+
+
+  end

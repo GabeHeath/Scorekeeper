@@ -1,0 +1,200 @@
+<% initialize_bgg_api %>
+<%= javascript_include_tag "play_players_expansions.js" %>
+<%= javascript_include_tag "edit_play.js" %>
+<%= javascript_include_tag "bootstrap-colorselector.js" %>
+<%= stylesheet_link_tag "bootstrap-colorselector.css" %>
+
+<%= form_for(@play) do |f| %>
+    <% if @play.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@play.errors.count, "error") %> prohibited this play from being saved:</h2>
+
+          <ul>
+            <% @play.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+
+    <div class="row">
+      <div class="new-play-form col-md-5 col-md-offset-1">
+
+        <%= fields_for :game do |fg| %>
+            <label>Game:</label>
+            <%= fg.text_field :name, :id => 'bgg-game-search', :class => 'form-control', :value => edit_play_name(@play), :readonly => is_play_field_editable(current_user.id, @play) %>
+        <% end %>
+
+        <br>
+
+        <div class="col-md-6">
+          <label>Date:</label>
+          <%= f.text_field :date, :class => "#{is_play_field_editable(current_user.id, @play, nil, 'date')} form-control", :autocomplete => :off, :readonly => is_play_field_editable(current_user.id, @play) %>
+        </div>
+
+        <div class="col-md-6">
+          <label>Location:</label>
+          <%= f.text_field :location, :id => 'new-play-location', :class => 'form-control', :readonly => is_play_field_editable(current_user.id, @play) %>
+        </div>
+
+        <br><br><br><br>
+
+        <div class="field">
+          <%= f.label :notes %><br>
+          <%= f.text_area :notes, :rows => 5, :class => "form-control", :readonly => is_play_field_editable(current_user.id, @play) %>
+        </div>
+
+        <br>
+
+
+        <div class="col-md-12">
+          <button id="submit-play" class="btn btn-primary btn-block">Save Edit</button>
+          <%= link_to 'Cancel', play_path(@play), :class => "btn btn-default btn-block" %>
+        </div>
+
+
+      </div>
+
+
+      <div class="col-md-5">
+
+
+        <table id="existing-players-table" class="table table-hover">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Existing Player</th>
+            <th>Score</th>
+            <th>Team</th>
+            <th>Win</th>
+            <th>Delete?</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% @play.players.each_with_index do |player, index| %>
+              <%= render 'edit_player_fields', :player => player, :i => index %>
+          <% end %>
+
+          </tbody>
+        </table>
+
+        <hr>
+
+        <% if is_play_field_editable(current_user.id, @play, nil, 't-f') %>
+            <table id="players-table" class="table table-hover">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>New Player</th>
+                <th>Score</th>
+                <th>Team</th>
+                <th>Win</th>
+                <th>&nbsp;</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr class="fields">
+                <td>1</td>
+                <td>
+                  <%= text_field_tag 'name[]', nil, :class => 'form-control input-xs play-name' %>
+                </td>
+                <td>
+                  <%= text_field_tag 'score[]', nil, :class => 'form-control input-xs', :autocomplete => :off %>
+                </td>
+                <td>
+                  <select class="team-selector" name="team[]">
+                    <option value="none" data-color="rgba(0,0,0,0)" selected>none</option>
+                    <option value="#d53e4f" data-color="#d53e4f">#d53e4f</option>
+                    <option value="#f46d43" data-color="#f46d43">#f46d43</option>
+                    <option value="#fdae61" data-color="#fdae61">#fdae61</option>
+                    <option value="#fee08b" data-color="#fee08b">#fee08b</option>
+                    <option value="#e6f598" data-color="#e6f598">#e6f598</option>
+                    <option value="#abdda4" data-color="#abdda4">#abdda4</option>
+                    <option value="#66c2a5" data-color="#66c2a5">#F5A0A0</option>
+                    <option value="#3288bd" data-color="#3288bd">#3288bd</option>
+                  </select>
+                  <script>$(".team-selector").colorselector();</script>
+                </td>
+                <td>
+                  <%= hidden_field_tag 'win[]', 0 %>
+                  <%= check_box_tag 'win[]', 1 %>
+                </td>
+                <td>
+                  <%= link_to_remove_player "&times".html_safe, f %>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+            <%= link_to_add_fields "Add New Player", f, :players %>
+
+
+            <br>
+            <hr>
+
+
+        <% end %>
+
+        <% if @play.play_expansions.count > 0 %>
+            <table id="existing-expansion-table" class="table table-hover">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Existing Expansion</th>
+                <th>Delete?</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <% @play.play_expansions.each_with_index do |play_expansion, index| %>
+                  <%= render 'edit_expansion_fields', :play_expansion => play_expansion, :i => index %>
+              <% end %>
+
+              </tbody>
+            </table>
+
+            <hr>
+
+        <% end %>
+
+
+        <% if is_play_field_editable(current_user.id, @play, nil, 't-f') %>
+            <table id="expansion-table" class="table table-hover">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>New Expansion</th>
+                <th>&nbsp;</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="fields stripe">
+                <td>1</td>
+                <td>
+                  <%= text_field_tag 'expansion[]', nil, :class => "expansion-name form-control input-xs", :autocomplete => :off %>
+                </td>
+                <td>
+                  <%= link_to_remove_expansion "&times".html_safe, f %>
+                </td>
+              </tbody>
+            </table>
+
+            <%= link_to_add_fields "Add New Expansion", f, :games %>
+        <% end %>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    </div>
+
+
+<% end %>
