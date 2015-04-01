@@ -1,5 +1,6 @@
 /*
 *= require bootstrap-datepicker
+*= require cal-heatmap
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -531,6 +532,15 @@ ul.ui-autocomplete {
   border-bottom: 2px dotted #ffffff;
 }
 
+.subheader-link, .subheader-link:visited {
+  color: #717171;
+}
+
+.subheader-link:hover {
+  text-decoration: none;
+  border-bottom: 2px dotted #717171;
+}
+
 
 .play-show-sub-header {
   margin-top: 79px;
@@ -606,6 +616,72 @@ ul.ui-autocomplete {
   right: 0;
 }
 
+
+
+.headerSortUp, .headerSortDown, .header {
+  color: #337ab7;
+}
+
+.headerSortUp:hover, .headerSortDown:hover, .header:hover {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+.headerSortUp:after {
+  content: ' ▲';
+}
+
+.headerSortDown:after {
+  content: ' ▼';
+}
+
+
+.stats {
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+  }
+
+.stats:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+
+.table-main-col-link {
+  color: rgb(51, 51, 51);
+}
+
+
+#friend_search {
+  margin-bottom:25px;
+}
+
+
+
+.current-user-row{
+  background-color: rgba(255, 0, 0, 0.13) !important;
+}
+
+.current-user-row:hover{
+  background-color: rgba(255, 0, 0, 0.17) !important;
+}
+
+.friend-row {
+  background-color: rgba(51, 122, 183, 0.31) !important
+}
+
+.friend-row:hover {
+  background-color: rgba(51, 122, 183, 0.35) !important
+}
 
 
 

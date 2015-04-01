@@ -1,0 +1,191 @@
+<script>
+    $(document).ready(function () {
+        var per_page = <%= @per_page.to_i %>
+        var page_num = <%= params[:page].to_i %>
+
+        if (page_num === 0) {
+            page_num = 1;
+        }
+
+        $.tablesorter.addWidget({
+            // give the widget a id
+            id: "indexFirstColumn",
+            // format is called when the on init and when a sorting has finished
+            format: function (table) {
+                // loop all tr elements and set the value for the first column
+                for (var i = 0; i < table.tBodies[0].rows.length; i++) {
+                    $("tbody tr:eq(" + i + ") td:first", table).html( (i + 1) + (per_page * (page_num - 1) ) );
+                }
+            }
+        });
+
+        $("#player-compare-stats").tablesorter({
+            headers: {0: {sorter: false}}, widgets: ['indexFirstColumn']
+        })
+        $('a[rel^="prev"]').attr('data-no-turbolink', '')
+        $('a[rel^="next"]').attr('data-no-turbolink', '')
+
+        $('.close').on('click', function() {
+            $('#no-play-alert').val(false);
+        });
+
+    });
+</script>
+
+
+<div class="page-wrap">
+
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
+
+    <h1>Compare Stats</h1>
+  </header>
+
+  <div class="play-show-sub-header">
+    <b>Game: <%= link_to @game.name, game_path(@game.id), :class=> 'subheader-link' %></b>
+  </div>
+
+
+  <div class="content">
+    <%= form_tag("/users/#{params[:id]}/compare/#{params[:game_id]}", method: :get, :id=>'friend-search-form') do %>
+        <%= hidden_field_tag :notice, nil, :id=>'no-play-alert' %>
+
+    <% if @not_included && params[:notice] != 'false'%>
+        <div style="margin-bottom: 25px;" class="alert alert-info alert-dismissable col-md-6 col-md-offset-3" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          You haven't logged any plays of this game. You can compare your friends stats below.
+        </div>
+    <% end %>
+
+    <div id="friend_search" class="col-md-6 col-md-offset-3">
+          <div class="input-group">
+            <%= text_field_tag :search, nil, class: "form-control play-name", placeholder: "Search for Friend...", :autocomplete => :off, :value=>params[:search] %>
+            <%= link_to(compare_path(params[:id], params[:game_id], :notice => 'false')) do %>
+                <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+            <% end %>
+
+            <span class="input-group-btn">
+                <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+            </span>
+          </div>
+    </div>
+
+          <div class="col-md-12">
+            <table id="player-compare-stats" class="table table-hover table-striped table-bordered table-fixed-header">
+              <thead style="font-size:11px;">
+              <tr>
+                <th>Rank</th>
+                <th>Friend</th>
+                <th>Plays</th>
+                <th>Win&nbsp;%</th>
+                <th>Best Score</th>
+                <th>Average Score</th>
+                <th>Average<br>Winning Score</th>
+                <th>Lowest<br>Winning Score</th>
+                <th>Highest<br>Losing Score</th>
+                <th>Worst Score</th>
+                <th>Most<br>Defeated Friend</th>
+                <th>Most<br>Defeated By</th>
+                <th>Most Played<br>Location</th>
+                <th>Average&nbsp;#<br>of Players</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @friends.each_with_index do |user, i| %>
+                  <tr class="<%= is_row_important(user.id, current_user.id, params[:id].to_i) %>">
+                    <td></td>
+                    <td><%= link_to user.name, user_path(user.id), :class => 'table-main-col-link' %></td>
+                    <td><%= user.plays.where(:game_id => params[:game_id]).count %></td>
+                    <td><%= player_win_percentage(user.id, params[:game_id]) %>%</td>
+                    <td>
+                      <% if player_best_score(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_best_score(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_average_score(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_average_score(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_average_winning_score(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_average_winning_score(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_lowest_winning_score(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_lowest_winning_score(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_highest_losing_score(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_highest_losing_score(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_worst_score(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_worst_score(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_most_defeated_friend(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_most_defeated_friend(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_most_defeated_by(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_most_defeated_by(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_most_played_location(user.id, params[:game_id]) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_most_played_location(user.id, params[:game_id]) %>
+                      <% end %>
+                    </td>
+                    <td><%= player_average_num_players(user.id, params[:game_id]) %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+            <div id="item-per-page-dropdown">
+              Plays per page: <%= select_tag :per_page, options_for_select([1,5,10,25,50,100], @per_page), class: "form-control input-xs", :onchange => "$('form#friend-search-form').submit()" %>
+            </div>
+
+      <% end %>
+
+            <div class="col-md-12" style="text-align: center">
+              <%= will_paginate @friends, renderer: BootstrapPagination::Rails %><br>
+              <span style="color:darkgray; font-size:12px;"><%= page_entries_info(@friends, :model => 'friends') %></span>
+              <br><br>
+            </div>
+
+          </div>
+
+          <div class="col-md-10 col-md-offset-1">
+
+          </div>
+
+
+      </div>
+</div>

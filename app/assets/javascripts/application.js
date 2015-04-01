@@ -16,7 +16,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+//= require d3
+//= require cal-heatmap
 //= require_tree .
 
 $(document).ready(function () {
@@ -101,18 +103,17 @@ $(document).ready(function () {
         return event.preventDefault();
     });
 
-    $("#play-table tr[data-link]").click(function() {
+    $("#play-table tr[data-link]").click(function () {
         window.location = $(this).data("link")
     })
 });
 
 
-
-$(document).ready(function() {
+$(document).ready(function () {
     clearAdvancedSearchFields()
 
     var advancedSearchOpen = false;
-    $('#advanced-search-btn').on('click', function() {
+    $('#advanced-search-btn').on('click', function () {
         if (!advancedSearchOpen) {
             $('#advanced-search').show();
             $('#advanced-search-btn').attr('class', 'btn btn-default glyphicon glyphicon-chevron-up');
@@ -127,7 +128,7 @@ $(document).ready(function() {
 
     });
 
-    $("#searchclear").click(function(){
+    $("#searchclear").click(function () {
         $("#play-search-bar").val('');
     });
 });

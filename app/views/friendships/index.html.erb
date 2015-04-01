@@ -13,7 +13,7 @@
 
     <% unless @friends.blank? %>
         <% for user in @friends %>
-            <%= user.email %><%= link_to "Unfriend", friend_path(user), :method => "delete", :class => 'btn btn-mini' %>
+            <%= user.name %><%= link_to "Unfriend", friend_path(user), :method => "delete", :class => 'btn btn-mini' %>
             <br>
         <% end %>
     <% else %>
@@ -23,7 +23,7 @@
 
     <% unless @pending_invited.blank? %>
         <% for user in @pending_invited %>
-            <%= user.email %><span class="btn btn-mini disabled">Pending</span>
+            <%= user.name %><span class="btn btn-mini disabled">Pending</span>
             <br>
         <% end %>
     <% else %>
@@ -45,7 +45,7 @@
 
     <% unless @blocked.blank? %>
     <% for user in @blocked %>
-        <%= user.email %><%= link_to "Unblock", unblock_friend_path(user), :method => "put", :class => 'btn btn-mini' %>
+        <%= user.name %><%= link_to "Unblock", unblock_friend_path(user), :method => "put", :class => 'btn btn-mini' %>
         <br>
     <% end %>
     <% else %>

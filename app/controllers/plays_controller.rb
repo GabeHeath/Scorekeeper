@@ -153,22 +153,25 @@ class PlaysController < ApplicationController
         end
 
     # SAVE NEW PLAYERS
-        params[:name].each_with_index do |name, index|
-          @new_player = Player.new
 
-          unless name.blank?
-            friend_user_id = get_friend_user_id(name, current_user.friends)
-            if friend_user_id
-              @new_player.user_id = friend_user_id
-            else
-              @new_player.non_friend_name = name
+        unless params[:name].nil?
+          params[:name].each_with_index do |name, index|
+            @new_player = Player.new
+
+            unless name.blank?
+              friend_user_id = get_friend_user_id(name, current_user.friends)
+              if friend_user_id
+                @new_player.user_id = friend_user_id
+              else
+                @new_player.non_friend_name = name
+              end
+
+              @new_player.play_id = @play.id
+              @new_player.score = params[:score][index]
+              @new_player.win = params[:win][index]
+              @new_player.team = params[:team][index]
+              @new_player.save
             end
-
-            @new_player.play_id = @play.id
-            @new_player.score = params[:score][index]
-            @new_player.win = params[:win][index]
-            @new_player.team = params[:team][index]
-            @new_player.save
           end
         end
 

@@ -1,6 +1,13 @@
 $(function() {
     $( "#bgg-game-search" ).autocomplete({
-        source: "/autofill/bgg" //availableTags
+        source: "/autofill/bgg",
+        select: function (e, ui) { //remove this and below to not force users to select from autofill
+            $(this).next().val(ui.item.id);
+        },
+        change: function (ev, ui) {
+            if (!ui.item)
+                $(this).val("");
+        }
     });
 
     $( "#new-play-location" ).autocomplete({
@@ -22,6 +29,7 @@ $(function() {
 $(document).on("click", ".play-name", function(e) {
     $( ".play-name" ).autocomplete({
         source: "/autofill/player" //availableTags
+
     });
 });
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'users/show'
+
   resources :collections
 
   #resources :players
@@ -14,6 +16,8 @@ Rails.application.routes.draw do
 
   devise_for :users,
              controllers: {omniauth_callbacks: "omniauth_callbacks"}
+  match 'users/:id' => 'users#show', as: :user, via: :get
+  match 'users/:id/compare/:game_id' => 'users#compare', as: :compare, via: :get
 
 
   authenticated :user do

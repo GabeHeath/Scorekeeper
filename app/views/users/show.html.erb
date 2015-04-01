@@ -1,0 +1,91 @@
+<script>
+    $(document).ready(function () {
+                $("#player-game-stats").tablesorter()
+                $('a[rel^="prev"]').attr('data-no-turbolink','')
+                $('a[rel^="next"]').attr('data-no-turbolink','')
+
+            }
+    );
+</script>
+
+<div class="page-wrap">
+
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
+
+    <h1><%= link_to @user.name, user_path(params[:id]), :class => "play-show-game-name" %></h1>
+  </header>
+
+
+  <div class="content">
+    <div class="col-md-7 col-md-offset-4">
+      <%= form_tag("/users/#{params[:id]}", method: :get, :id=>'game_search') do %>
+          <div class="input-group">
+
+            <%= text_field_tag :search, nil, id: "play-search-bar", class: "form-control", placeholder: "Search for Game...", :autocomplete => :off, :value=>params[:search] %>
+            <%= link_to(user_path(params[:id])) do %>
+                <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+            <% end %>
+
+            <span class="input-group-btn">
+                <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
+            </span>
+          </div>
+
+      <table id="player-game-stats" class="table table-hover table-striped ">
+        <thead>
+        <tr>
+          <th>Plays</th>
+          <th>Game</th>
+          <th>Win %</th>
+          <th>Average Score</th>
+          <th>Best Score</th>
+          <th>&nbsp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @plays.each do |game_id| %>
+            <tr>
+              <td><%= @user.plays.where(:game_id => game_id).count %></td>
+              <td class="game-stat-name"><%= link_to Game.find(game_id).name, game_path(game_id), :class=>'table-main-col-link' %></td>
+              <td><%= player_win_percentage(@user.id, game_id) %>%</td>
+              <td>
+                <% if player_average_score(@user.id, game_id) == "N/A" %>
+                    <span class="glyphicon glyphicon-minus"></span>
+                <% else %>
+                    <%= player_average_score(@user.id, game_id) %>
+                <% end %>
+              </td>
+              <td>
+                <% if player_best_score(@user.id, game_id) == "N/A" %>
+                    <span class="glyphicon glyphicon-minus"></span>
+                <% else %>
+                    <%= player_best_score(@user.id, game_id) %>
+                <% end %>
+              </td>
+              <td><%= link_to('',compare_path(@user.id, game_id), :class=>'glyphicon glyphicon-stats stats') %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div id="item-per-page-dropdown">
+        Plays per page: <%= select_tag :per_page, options_for_select([5,10,25,50,100], @per_page), class: "form-control input-xs", :onchange => "$('form#game_search').submit()" %>
+      </div>
+
+      <% end %>
+
+      <div class="col-md-12" style="text-align: center">
+        <%= will_paginate @plays, renderer: BootstrapPagination::Rails %><br>
+        <span style="color:darkgray; font-size:12px;"><%= page_entries_info(@plays, :model => 'game') %></span>
+        <br><br>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+

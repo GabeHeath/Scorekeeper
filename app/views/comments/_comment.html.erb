@@ -18,7 +18,9 @@
       </div>
 
   <div class="col-md-11 comment_content">
-    <p class="comment_name"><strong><%= comment.user.name %></strong></p>
+    <%= link_to(user_path(comment.user.id)) do %>
+        <strong class="comment_name"><%= comment.user.name %></strong>
+    <% end %>
 
     <p class="comment_body"><%= comment.comment %></p>
 
