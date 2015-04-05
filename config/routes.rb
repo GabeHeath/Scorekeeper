@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
 
   authenticated :user do
-    root :to => 'pages#main', as: :authenticated_root
+    root :to => 'users#root', as: :authenticated_root
+    #root :to => 'pages#main', as: :authenticated_root
   end
   root :to => 'pages#home'
 

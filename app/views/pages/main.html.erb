@@ -37,8 +37,10 @@
         <div>F</div>
       </div>
 
-      <button class="btn btn-xs btn-default" id="onMinDomainReached-previous"><i class="glyphicon glyphicon-chevron-left"></i></button>
-      <button class="btn btn-xs btn-default" id="onMinDomainReached-next"><i class="glyphicon glyphicon-chevron-right"></i></button>
+      <button class="btn btn-xs btn-default" id="onMinDomainReached-previous">
+        <i class="glyphicon glyphicon-chevron-left"></i></button>
+      <button class="btn btn-xs btn-default" id="onMinDomainReached-next">
+        <i class="glyphicon glyphicon-chevron-right"></i></button>
 
       <div id="cal-heatmap-legend-labels">
         <span style="float:left">Less</span>
@@ -47,36 +49,36 @@
     </div>
 
 
-        <script type="text/javascript">
-            var cal = new CalHeatMap();
-            cal.init({
-                domain: "year",
-                subDomain: "day",
-                cellSize: 15,
-                subDomainTextFormat: "%d",
-                range: 1,
-                displayLegend: true,
-                weekStartOnMonday: false,
-                start: new Date(2015, 0, 15),
-                maxDate: new Date(2015, 11),
-                nextSelector: "#onMinDomainReached-next",
-                previousSelector: "#onMinDomainReached-previous",
-                onMaxDomainReached: function(hit) {
-                    if (hit) {
-                        $("#onMinDomainReached-next").hide();
-                    } else {
-                        $("#onMinDomainReached-next").show();
-                    }
-                },
-                legendHorizontalPosition: "right",
-                legendMargin: [-20,0,0,0],
-                highlight: ["now", new Date(2015, 2, 25)],
-                legend: [ 1, 2, 3, 4],
-                itemName: ["play", "plays"],
-                tooltip: true,
-                data: "http://localhost:3000/plays.json"
-            });
-        </script>
+    <script type="text/javascript">
+        var cal = new CalHeatMap();
+        cal.init({
+            domain: "year",
+            subDomain: "day",
+            cellSize: 15,
+            subDomainTextFormat: "%d",
+            range: 1,
+            displayLegend: true,
+            weekStartOnMonday: false,
+            start: new Date(2015, 0, 15),
+            maxDate: new Date(2015, 11),
+            nextSelector: "#onMinDomainReached-next",
+            previousSelector: "#onMinDomainReached-previous",
+            onMaxDomainReached: function (hit) {
+                if (hit) {
+                    $("#onMinDomainReached-next").hide();
+                } else {
+                    $("#onMinDomainReached-next").show();
+                }
+            },
+            legendHorizontalPosition: "right",
+            legendMargin: [-20, 0, 0, 0],
+            highlight: ["now", new Date(2015, 2, 25)],
+            legend: [1, 2, 3, 4],
+            itemName: ["play", "plays"],
+            tooltip: true,
+            data: "http://localhost:3000/plays.json"
+        });
+    </script>
 
   </div>
 

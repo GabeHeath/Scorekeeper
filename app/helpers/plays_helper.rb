@@ -243,4 +243,21 @@ module PlaysHelper
     end
   end
 
+
+  def calculate_plays(user, date)
+    return user.plays.where(:date => date).count
+  end
+
+  def get_heatmap_play_counts(user_id)
+    @hash = {}
+    @user = User.find(user_id)
+
+    @user.plays.each do |play|
+      @hash[play.date.to_time.to_i] = calculate_plays(@user, play.date)
+    end
+
+    return @hash.to_json
+
+  end
+
 end

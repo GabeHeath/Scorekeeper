@@ -11,6 +11,8 @@ class UsersController < ApplicationController
 
     games_id_array = order_array_by_occurrence(@user.plays.pluck(:game_id))
     @plays = Game.where('id IN(?) AND name LIKE ?', games_id_array, "%#{search}%").order("field(id,#{games_id_array.join(',')})").paginate(:page => params[:page], :per_page => @per_page)
+
+    @play_dates = @user.plays
   end
 
   def compare
@@ -33,6 +35,11 @@ class UsersController < ApplicationController
     end
 
 
+  end
+
+
+  def root
+    redirect_to user_path(current_user.id)
   end
 
 
