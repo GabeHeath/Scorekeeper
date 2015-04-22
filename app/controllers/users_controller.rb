@@ -1,5 +1,19 @@
 class UsersController < ApplicationController
   def show
+    case params[:filter]
+      when "All"
+        @activities = PublicActivity::Activity.where(:owner_id => params[:id], owner_type: "User").order("created_at desc").paginate(:page => params[:page], :per_page => 25)
+      when "Plays"
+        @activities = PublicActivity::Activity.where(:owner_id => params[:id], owner_type: "User", trackable_type: "Play").order("created_at desc").paginate(:page => params[:page], :per_page => 25)
+      when "Comments"
+        @activities = PublicActivity::Activity.where(:owner_id => params[:id], owner_type: "User", trackable_type: "Comment").order("created_at desc").paginate(:page => params[:page], :per_page => 25)
+      when "Friends"
+        @activities = PublicActivity::Activity.where(:owner_id => params[:id], owner_type: "User", trackable_type: "Friendship").order("created_at desc").paginate(:page => params[:page], :per_page => 25)
+      else
+        @activities = PublicActivity::Activity.where(:owner_id => params[:id], owner_type: "User").order("created_at desc").paginate(:page => params[:page], :per_page => 25)
+    end
+
+
     if params[:per_page]
       @per_page = params[:per_page]
     else

@@ -63,7 +63,7 @@
       <br>
 
       <div>
-        <%= link_to 'Back', plays_path, :class => "btn btn-primary btn-block" %>
+        <%= link_to 'Back', :back, :class => "btn btn-primary btn-block" %>
         <% unless @play.game.bgg_id.blank? %>
             <%= link_to 'Open BGG Page', "https://boardgamegeek.com/boardgame/#{@play.game.bgg_id}", :class => "btn btn-danger btn-block", :target => '_blank' %>
         <% end %>
@@ -88,7 +88,7 @@
             <tr style="background-color: <%= player.team %>">
               <td><%= index + 1 %></td>
 
-              <td><%= show_player_name(player.non_friend_name, player.user.try(:name)) %></td>
+              <td><%= show_player_name(player.non_friend_name, player.user.try(:name), player.user_id) %></td>
 
               <td><%= player.score %></td>
 

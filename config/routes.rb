@@ -14,6 +14,14 @@ Rails.application.routes.draw do
 
   resources :games
 
+  resources :notifications
+
+  # post 'clear_new', :on => :collection
+  # get 'mark_read', :on => :collection
+
+  match 'notifications/clear_new' => 'notifications#clear_new', via: :post
+  match 'notifications/mark_read/:notification' => 'notifications#mark_read',as: :mark_read, via: :post
+
   devise_for :users,
              controllers: {omniauth_callbacks: "omniauth_callbacks"}
   match 'users/:id' => 'users#show', as: :user, via: :get

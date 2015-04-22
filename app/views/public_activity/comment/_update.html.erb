@@ -1,0 +1,11 @@
+<span class="glyphicon glyphicon-pencil list-icon"></span>
+
+Edited a comment to
+
+<% if activity.trackable %>
+    <%= link_to activity.trackable.play.game.name, play_path(activity.trackable.play.id, :comment => activity.trackable.id) %>.
+<% else %>
+    a play that has been removed.
+<% end %>
+
+<span class="activity-time"><%= time_ago_in_words(activity.trackable.updated_at) %> ago</span>

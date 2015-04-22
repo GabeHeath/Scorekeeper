@@ -45,6 +45,8 @@ gem 'ransack'
 gem 'd3_rails'
 gem 'cal-heatmap-rails', github: 'pavolzbell/cal-heatmap-rails', branch: :master
 
+gem 'public_activity'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

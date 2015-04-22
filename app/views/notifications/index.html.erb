@@ -1,0 +1,80 @@
+<div class="page-wrap">
+
+  <header class="main-header">
+    <label for="main-nav-check" class="toggle-menu">
+      ☰
+    </label>
+
+    <h1>Notifications</h1>
+  </header>
+
+
+  <div class="content">
+
+    <div class="col-md-8 col-md-offset-2">
+      <% unless @notifications.nil? %>
+          <% @notifications.each do |notification| %>
+              <% case notification.key %>
+      <% when "play.included" %>
+                  <%= link_to play_path(notification.trackable_id) do %>
+                      <div class="notification <%= is_notification_new(notification.id) %>">
+                        <i class="glyphicon glyphicon-knight notification-icon"></i></i>
+                        <b><%= get_notifier_name(notification.notifier_id) %></b> added you to
+                        <b><%= get_notification_play(notification.trackable_id) %></b>.
+                        <span class="notification-time"><%= time_ago_in_words(notification.created_at) %> ago</span>
+                      </div>
+                  <% end %>
+
+              <% when "play.edited" %>
+                  <%= link_to play_path(notification.trackable_id) do %>
+                      <div class="notification <%= is_notification_new(notification.id) %>">
+                        <i class="glyphicon glyphicon-pencil notification-icon"></i></i>
+                        <b><%= get_notifier_name(notification.notifier_id) %></b> edited
+                        <b><%= get_notification_play(notification.trackable_id) %></b>.
+                        <span class="notification-time"><%= time_ago_in_words(notification.created_at) %> ago</span>
+                      </div>
+                  <% end %>
+
+              <% when "comment.included" %>
+                  <%= link_to play_path(notification.trackable_id) do %>
+                      <div class="notification <%= is_notification_new(notification.id) %>">
+                        <i class="fa fa-comment notification-icon"></i>
+                        <b><%= get_notifier_name(notification.notifier_id) %></b> commented on
+                        <b><%= get_notification_play(notification.trackable_id) %></b>.
+                        <span class="notification-time"><%= time_ago_in_words(notification.created_at) %> ago</span>
+                      </div>
+                  <% end %>
+
+
+              <% when "friend.request" %>
+                  <%= link_to friends_path do %>
+                      <div class="notification <%= is_notification_new(notification.id) %>">
+                        <i class="fa fa-user notification-icon"></i>
+                        <b><%= get_notifier_name(notification.notifier_id) %></b> wants to be your friend.
+                        <span class="notification-time"><%= time_ago_in_words(notification.created_at) %> ago</span>
+                      </div>
+                  <% end %>
+
+              <% when "friend.accepted" %>
+                  <%= link_to user_path(notification.notifier_id) do %>
+                      <div class="notification <%= is_notification_new(notification.id) %>">
+                        <i class="fa fa-user-plus notification-icon"></i>
+                        <b><%= get_notifier_name(notification.notifier_id) %></b> accepted your friend request.
+                        <span class="notification-time"><%= time_ago_in_words(notification.created_at) %> ago</span>
+                      </div>
+                  <% end %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+
+
+    <div class="col-md-12" style="text-align: center">
+      <%= will_paginate @notifications, renderer: BootstrapPagination::Rails %><br>
+      <span style="color:darkgray; font-size:12px;"><%= page_entries_info(@notifications, :model => 'notifications') %></span>
+      <br><br>
+    </div>
+
+
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<span class="glyphicon glyphicon-pencil list-icon"></span>
+
+Edited
+
+<% if activity.trackable %>
+    <%= link_to activity.trackable.game.name, activity.trackable %>.
+    <span class="activity-time"><%= time_ago_in_words(activity.updated_at) %> ago</span>
+<% else %>
+    a play that has been removed.
+<% end %>

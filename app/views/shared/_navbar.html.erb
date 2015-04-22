@@ -2,43 +2,110 @@
   <div class="container">
 
 
-  <% if user_signed_in? %>
+    <% if user_signed_in? %>
 
         <div class="navbar-header">
           <%= link_to image_tag("scoreboard_logo7.svg", :class => "logo-signed-in"), root_path, :class => 'navbar-brand', "data-no-turbolink" => true %>
         </div>
 
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-    <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse">
 
       <span class="navbar-right">
+        <button id="notification-btn" type="button" class="btn btn-primary fa fa-bell" data-container="body" title="Notifications" data-toggle="popover" data-placement="bottom" data-original-title="">&nbsp;<span class="badge"><%= @new_notifications.count %></span>
+        </button>
         <span class="navbar-text">Signed in as <%= current_user.name %></span>
         <%= link_to 'New play', new_play_path, :class => 'btn btn-primary' %>
         <%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'btn btn-default navbar-btn' %>
       </span>
-    </div><!--/.nav-collapse -->
+        </div>
+        <!--/.nav-collapse -->
 
-  <% else %>
+    <% else %>
 
         <div class="navbar-header">
           <%= link_to image_tag("scoreboard_logo7.svg", :class => "logo"), root_path, :class => 'navbar-brand', "data-no-turbolink" => true %>
         </div>
 
-      <%= form_for(:user, :url => session_path(:user), :html => {:class => "navbar-form navbar-right"}) do |f| %>
-          <%= f.text_field :email, :placeholder => "Email", :class => 'form-control'%>
-          <%= f.password_field :password, :placeholder => "Password", :class => 'form-control'%>
-          <%= f.submit 'Sign in', :class => 'btn btn-primary navbar-btn' %>
-          <br>
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me, :id => 'remeber-me' %>
-          <%= link_to "Forgot your password?", new_password_path(:user), :id => 'forgot-password' %>
-      <% end %>
-  <% end %>
+        <%= form_for(:user, :url => session_path(:user), :html => {:class => "navbar-form navbar-right"}) do |f| %>
+            <%= f.text_field :email, :placeholder => "Email", :class => 'form-control' %>
+            <%= f.password_field :password, :placeholder => "Password", :class => 'form-control' %>
+            <%= f.submit 'Sign in', :class => 'btn btn-primary navbar-btn' %>
+            <br>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, :id => 'remeber-me' %>
+            <%= link_to "Forgot your password?", new_password_path(:user), :id => 'forgot-password' %>
+        <% end %>
+    <% end %>
   </div>
 </nav>
+
+
+
+<div id="popover-content" style="display: none;">
+  <% unless @notifications.blank? %>
+      <% @notifications.each do |notification| %>
+          <% case notification.key %>
+            <% when "play.included" %>
+              <%= link_to play_path(notification.trackable_id), :onclick => "markAsRead('#{mark_read_path(notification.id)}')" do %>
+                  <div class="notification <%= is_notification_new(notification.id) %>">
+                    <i class="glyphicon glyphicon-knight notification-icon"></i></i>
+                    <b><%= get_notifier_name(notification.notifier_id) %></b> added you to
+                    <b><%= get_notification_play(notification.trackable_id) %></b>.
+                  </div>
+              <% end %>
+
+            <% when "play.edited" %>
+              <%= link_to play_path(notification.trackable_id) do %>
+                  <div class="notification <%= is_notification_new(notification.id) %>">
+                    <i class="glyphicon glyphicon-pencil notification-icon"></i></i>
+                    <b><%= get_notifier_name(notification.notifier_id) %></b> edited
+                    <b><%= get_notification_play(notification.trackable_id) %></b>.
+                  </div>
+              <% end %>
+
+            <% when "comment.included" %>
+              <%= link_to play_path(notification.trackable_id) do %>
+                  <div class="notification <%= is_notification_new(notification.id) %>">
+                    <i class="fa fa-comment notification-icon"></i>
+                    <b><%= get_notifier_name(notification.notifier_id) %></b> commented on
+                    <b><%= get_notification_play(notification.trackable_id) %></b>.
+                  </div>
+              <% end %>
+
+
+            <% when "friend.request" %>
+              <%= link_to friends_path do %>
+                  <div class="notification <%= is_notification_new(notification.id) %>">
+                    <i class="fa fa-user notification-icon"></i>
+                    <b><%= get_notifier_name(notification.notifier_id) %></b> wants to be your friend.
+                  </div>
+              <% end %>
+
+          <% when "friend.accepted" %>
+              <%= link_to user_path(notification.notifier_id) do %>
+                  <div class="notification <%= is_notification_new(notification.id) %>">
+                    <i class="fa fa-user-plus notification-icon"></i>
+                    <b><%= get_notifier_name(notification.notifier_id) %></b> accepted your friend request.
+                  </div>
+              <% end %>
+          <% end %>
+      <% end %>
+
+  <% else %>
+        <div class="no-notifications"><span class="fa fa-thumbs-o-up notification-icon"></span>No unread notifications.</div>
+  <% end %>
+
+  <div id="notification-see-more">
+    <%= link_to notifications_path do %>
+        <b>See More</b>
+    <% end %>
+</div>
+
+</div>

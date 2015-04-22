@@ -1,0 +1,11 @@
+<span class="fa fa-user-plus list-icon"></span>
+
+Became friends with
+
+ <% if activity.trackable %>
+    <%= link_to User.where(:id => activity.trackable.friendable_id).first.name, user_path(activity.trackable.friendable_id) %>.
+ <% else %>
+     a user that has been removed.
+ <% end %>
+
+<span class="activity-time"><%= time_ago_in_words(activity.created_at) %> ago</span>

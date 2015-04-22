@@ -73,12 +73,22 @@ class PlaysController < ApplicationController
 
         name.each_with_index do |name, index|
           @player = Player.new
+
           if index == 0
             @player.user_id = current_user.id
+            @play.create_activity :create, owner: current_user
           else
             friend_user_id = get_friend_user_id(name, current_user.friends)
             if friend_user_id
               @player.user_id = friend_user_id
+              @play.create_activity :create, owner: User.find(friend_user_id)
+
+              @notification = Notification.new
+              @notification.user_id = friend_user_id
+              @notification.notifier_id = current_user.id
+              @notification.key = 'play.included'
+              @notification.trackable_id = @play.id
+              @notification.save
             else
               @player.non_friend_name = name
             end
@@ -88,6 +98,7 @@ class PlaysController < ApplicationController
           @player.win = params[:win][index]
           @player.team = params[:team][index]
           @player.save
+
         end
 
 
@@ -149,6 +160,15 @@ class PlaysController < ApplicationController
             @player.team = params[:existing_team][index]
             @player.win = params[:existing_win][index]
             @player.save
+
+            unless @player.user_id.blank? || @player.user_id == current_user.id
+              @notification = Notification.new
+              @notification.user_id = @player.user_id
+              @notification.notifier_id = current_user.id
+              @notification.key = 'play.edited'
+              @notification.trackable_id = @play.id
+              @notification.save
+            end
           end
         end
 
@@ -162,6 +182,13 @@ class PlaysController < ApplicationController
               friend_user_id = get_friend_user_id(name, current_user.friends)
               if friend_user_id
                 @new_player.user_id = friend_user_id
+
+                @notification = Notification.new
+                @notification.user_id = friend_user_id
+                @notification.notifier_id = current_user.id
+                @notification.key = 'play.included'
+                @notification.trackable_id = @play.id
+                @notification.save
               else
                 @new_player.non_friend_name = name
               end
@@ -176,6 +203,7 @@ class PlaysController < ApplicationController
         end
 
     #UPDATE EXISTING EXPANSIONS
+      unless params[:eid].nil?
         (params[:eid]).each_with_index do |play_expansion_id, index|
           @play_expansion = @play.play_expansions.find_by_id(play_expansion_id)
 
@@ -183,27 +211,33 @@ class PlaysController < ApplicationController
             @play_expansion.destroy
           end
         end
+      end
+
 
     # SAVE NEW EXPANSIONS
         expansions = params[:expansion]
-        expansions.each_with_index do |expansion, index|
-          unless expansion.blank?
-            @expansion = Expansion.new
 
-            data = Bgg.bgg_get_name_and_id(expansions[index])
-            attributes = {name: data[0], year: data[1], bgg_id: data[2]}
-            @new_expansion = Expansion.where(attributes).first_or_create
+        unless expansions.nil?
+          expansions.each_with_index do |expansion, index|
+            unless expansion.blank?
+              @expansion = Expansion.new
 
-            @play_expansion = PlayExpansion.new
+              data = Bgg.bgg_get_name_and_id(expansions[index])
+              attributes = {name: data[0], year: data[1], bgg_id: data[2]}
+              @new_expansion = Expansion.where(attributes).first_or_create
 
-            @play_expansion.play_id = @play.id
-            @play_expansion.expansion_id = @new_expansion.id
-            @play_expansion.save
+              @play_expansion = PlayExpansion.new
+
+              @play_expansion.play_id = @play.id
+              @play_expansion.expansion_id = @new_expansion.id
+              @play_expansion.save
+            end
           end
         end
 
     respond_to do |format|
       if @play.update(play_params)
+        @play.create_activity :update, owner: current_user
         format.html { redirect_to @play, notice: 'Play was successfully updated.' }
         format.json { render :show, status: :ok, location: @play }
       else
@@ -217,6 +251,12 @@ class PlaysController < ApplicationController
   # DELETE /plays/1.json
   def destroy
     @play.destroy
+
+    @activity = PublicActivity::Activity.where(trackable_id: (params[:id]), trackable_type: controller_path.classify)
+    @activity.each do |activity|
+      activity.destroy
+    end
+
     respond_to do |format|
       format.html { redirect_to plays_url, notice: 'Play was successfully destroyed.' }
       format.json { head :no_content }

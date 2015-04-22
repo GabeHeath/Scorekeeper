@@ -8,7 +8,24 @@ class CommentsController < ApplicationController
 
     @comment.save
 
-    redirect_to play_path(@play)
+    if @comment.save
+      @comment.create_activity :create, owner: current_user
+
+      @play.players.each do |player|
+        unless player.user_id.blank? || player.user_id == current_user.id
+          @notification = Notification.new
+          @notification.user_id = player.user_id
+          @notification.notifier_id = current_user.id
+          @notification.key = "comment.included"
+          @notification.trackable_id = @play.id
+          @notification.save
+        end
+      end
+
+      redirect_to play_path(@play)
+    else
+      format.html { render :new }
+    end
   end
 
 
@@ -16,6 +33,11 @@ class CommentsController < ApplicationController
     @play = Play.find(params[:play_id])
     @comment = @play.comments.find(params[:id])
     @comment.destroy
+
+    @activity = PublicActivity::Activity.where(trackable_id: (params[:id]), trackable_type: controller_path.classify)
+    @activity.each do |activity|
+      activity.destroy
+    end
 
     redirect_to play_path(@play)
   end
@@ -34,8 +56,12 @@ class CommentsController < ApplicationController
     @comment.edited = 1
     @comment.save
 
-    redirect_to play_path(@play), notice: 'Comment was successfully updated.'
-
+    if @comment.save
+      @comment.create_activity :update, owner: current_user
+      redirect_to play_path(@play), notice: 'Comment was successfully updated.'
+    else
+      format.html { render :edit }
+    end
   end
 
 

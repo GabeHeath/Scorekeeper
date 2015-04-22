@@ -5,11 +5,11 @@ module PlaysHelper
     return user.name
   end
 
-  def show_player_name(non_friend_name, friend_name)
+  def show_player_name(non_friend_name, friend_name, user_id)
     if non_friend_name != nil
       return non_friend_name
     else
-      return friend_name
+      return link_to friend_name, user_path(user_id), class: "table-main-col-link"
     end
   end
 
@@ -155,6 +155,18 @@ module PlaysHelper
     players = []
     user = User.find(user_id)
     plays = user.plays.where(:game_id => game_id)
+
+    plays.each do |play|
+      players.push(play.players.count)
+    end
+
+    total = players.inject(:+)
+    return ((total.to_f) / (players.length)).round
+  end
+
+  def total_average_num_players(user)
+    players = []
+    plays = user.plays
 
     plays.each do |play|
       players.push(play.players.count)

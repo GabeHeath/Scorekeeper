@@ -1,13 +1,3 @@
-<script>
-    $(document).ready(function () {
-                $("#player-game-stats").tablesorter()
-                $('a[rel^="prev"]').attr('data-no-turbolink', '')
-                $('a[rel^="next"]').attr('data-no-turbolink', '')
-
-            }
-    );
-</script>
-
 <div class="page-wrap">
 
   <header class="main-header">
@@ -22,190 +12,248 @@
   <div class="content">
 
     <div class="col-md-12">
-      <div class="col-md-2 col-md-offset-1">
+
+      <div style="margin-right:25px;" class="new-play-form col-md-4">
+
         <div style="background-color: lightgray;
                 height: 130px;
                 border: 1px solid;">
           Profile Pic
         </div>
-<br>
-        <div style="background-color: lightgray;
-                height: 150px;
-                border: 1px solid;">
-          Profile Pic
+        <br>
+
+        <table id="user-global-stat-table" class="col-md-12">
+          <tbody>
+          <tr class="stat-stripe-odd">
+            <td><b>Total plays:</b></td>
+            <td><%= cp = @user.plays.count %></td>
+          </tr>
+
+          <tr class="stat-stripe-even">
+            <td><b>Total win percentage:</b></td>
+            <td><%= ((Player.where(:user_id => params[:id], :win => true).count.to_f / cp.to_f) * 100.0).round(1) %>%
+            </td>
+          </tr>
+
+          <tr class="stat-stripe-odd">
+            <td><b>Games in collection:</b></td>
+            <td><%= @user.collections.count %></td>
+          </tr>
+
+          <tr class="stat-stripe-even">
+            <td><b>Total average players:</b></td>
+            <td><%= total_average_num_players(@user) %></td>
+          </tr>
+
+          <tr class="stat-stripe-odd">
+            <td><b>Friends:</b></td>
+            <td><%= @user.friends.count %></td>
+          </tr>
+
+          <% if current_user != @user %>
+              <tr class="stat-stripe-even">
+                <td><b>Friends in common:</b></td>
+                <td> <%= current_user.common_friends_with(@user).count %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <br>
+
+
+        <div class="col-md-12">
+          <%= link_to 'View Game Collection', :back, :class => "btn btn-primary btn-block" %>
+          <%= link_to 'Open BGG Profile', "https://boardgamegeek.com/boardgame/", :class => "btn btn-danger btn-block", :target => '_blank' %>
+          <%= link_to 'View Friends', "https://boardgamegeek.com/boardgame/", :class => "btn btn-info btn-block" %>
         </div>
 
       </div>
 
-      <div style="background-color: lightgray;
-              height: 300px;
-              border: 1px solid;" class="col-md-7 col-md-offset-1">
-        Profile info
-      </div>
+      <div class="col-md-7">
 
 
-    </div>
+        <%= form_tag("/users/#{params[:id]}", method: :get, :id => 'game_search') do %>
+            <div class="input-group">
 
+              <%= text_field_tag :search, nil, id: "play-search-bar", class: "form-control", placeholder: "Search for Game...", :autocomplete => :off, :value => params[:search] %>
+              <%= link_to(user_path(params[:id])) do %>
+                  <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+              <% end %>
 
-  </div>
-
-
-  <div class="col-md-12">
-    <hr>
-  </div>
-
-
-
-
-
-
-  <div class="col-md-12">
-    <div style="bottom: -170px;" id="cal-heatmap">
-      <table id="cal-heatmap-month-labels">
-        <tr>
-          <td>Jan</td>
-          <td>Feb</td>
-          <td>Mar</td>
-          <td>Apr</td>
-          <td>May</td>
-          <td>Jun</td>
-          <td>Jul</td>
-          <td>Aug</td>
-          <td>Sep</td>
-          <td>Oct</td>
-          <td>Nov</td>
-          <td>Dec</td>
-        </tr>
-      </table>
-
-      <div id="cal-heatmap-day-labels">
-        <div>M</div>
-        <div>W</div>
-        <div>F</div>
-      </div>
-
-      <button class="btn btn-xs btn-default" id="onMinDomainReached-previous">
-        <i class="glyphicon glyphicon-chevron-left"></i></button>
-      <button class="btn btn-xs btn-default" id="onMinDomainReached-next">
-        <i class="glyphicon glyphicon-chevron-right"></i></button>
-
-      <div id="cal-heatmap-legend-labels">
-        <span style="float:left">Less</span>
-        <span style="float:right">More</span>
-      </div>
-    </div>
-
-
-    <script type="text/javascript">
-        var cal = new CalHeatMap();
-        cal.init({
-            domain: "year",
-            subDomain: "day",
-            cellSize: 15,
-            subDomainTextFormat: "%d",
-            range: 1,
-            displayLegend: true,
-            weekStartOnMonday: false,
-            start: new Date(2015, 0, 15),
-            maxDate: new Date(2015, 11),
-            nextSelector: "#onMinDomainReached-next",
-            previousSelector: "#onMinDomainReached-previous",
-            onMaxDomainReached: function (hit) {
-                if (hit) {
-                    $("#onMinDomainReached-next").hide();
-                } else {
-                    $("#onMinDomainReached-next").show();
-                }
-            },
-            legendHorizontalPosition: "right",
-            legendMargin: [-20, 0, 0, 0],
-            highlight: ["now", new Date(2015, 2, 25)],
-            legend: [1, 2, 3, 4],
-            itemName: ["play", "plays"],
-            tooltip: true,
-            data: <%= get_heatmap_play_counts(params[:id]).html_safe %>
-        });
-    </script>
-
-  </div>
-
-
-
-
-
-  <div class="col-md-12">
-
-
-    <div class="col-md-6 col-md-offset-1">
-
-      <%= form_tag("/users/#{params[:id]}", method: :get, :id => 'game_search') do %>
-          <div class="input-group">
-
-            <%= text_field_tag :search, nil, id: "play-search-bar", class: "form-control", placeholder: "Search for Game...", :autocomplete => :off, :value => params[:search] %>
-            <%= link_to(user_path(params[:id])) do %>
-                <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
-            <% end %>
-
-            <span class="input-group-btn">
+              <span class="input-group-btn">
                 <%= submit_tag "Search", :name => nil, class: "btn btn-primary" %>
             </span>
-          </div>
+            </div>
 
-          <br>
+            <br>
 
-          <table id="player-game-stats" class="table table-hover table-striped ">
-            <thead>
-            <tr>
-              <th>Plays</th>
-              <th>Game</th>
-              <th>Win %</th>
-              <th>Average Score</th>
-              <th>Best Score</th>
-              <th>&nbsp</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @plays.each do |game_id| %>
-                <tr>
-                  <td><%= @user.plays.where(:game_id => game_id).count %></td>
-                  <td class="game-stat-name"><%= link_to Game.find(game_id).name, game_path(game_id), :class => 'table-main-col-link' %></td>
-                  <td><%= player_win_percentage(@user.id, game_id) %>%</td>
-                  <td>
-                    <% if player_average_score(@user.id, game_id) == "N/A" %>
-                        <span class="glyphicon glyphicon-minus"></span>
-                    <% else %>
-                        <%= player_average_score(@user.id, game_id) %>
-                    <% end %>
-                  </td>
-                  <td>
-                    <% if player_best_score(@user.id, game_id) == "N/A" %>
-                        <span class="glyphicon glyphicon-minus"></span>
-                    <% else %>
-                        <%= player_best_score(@user.id, game_id) %>
-                    <% end %>
-                  </td>
-                  <td><%= link_to('', compare_path(@user.id, game_id), :class => 'glyphicon glyphicon-stats stats') %></td>
-                </tr>
-            <% end %>
-            </tbody>
-          </table>
+            <table id="player-game-stats" class="table table-hover table-striped ">
+              <thead>
+              <tr>
+                <th>Plays</th>
+                <th>Game</th>
+                <th>Win %</th>
+                <th>Average Score</th>
+                <th>Best Score</th>
+                <th>&nbsp</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @plays.each do |game_id| %>
+                  <tr>
+                    <td><%= @user.plays.where(:game_id => game_id).count %></td>
+                    <td class="game-stat-name"><%= link_to Game.find_by_id(game_id).name, game_path(game_id), :class => 'table-main-col-link' %></td>
+                    <td><%= player_win_percentage(@user.id, game_id) %>%</td>
+                    <td>
+                      <% if player_average_score(@user.id, game_id) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_average_score(@user.id, game_id) %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if player_best_score(@user.id, game_id) == "N/A" %>
+                          <span class="glyphicon glyphicon-minus"></span>
+                      <% else %>
+                          <%= player_best_score(@user.id, game_id) %>
+                      <% end %>
+                    </td>
+                    <td><%= link_to('', compare_path(@user.id, game_id), :class => 'glyphicon glyphicon-stats stats') %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
 
-          <div id="item-per-page-dropdown">
-            Plays per
-            page: <%= select_tag :per_page, options_for_select([5, 10, 25, 50, 100], @per_page), class: "form-control input-xs", :onchange => "$('form#game_search').submit()" %>
-          </div>
+            <div id="item-per-page-dropdown">
+              Plays per
+              page: <%= select_tag :per_page, options_for_select([5, 10, 25, 50, 100], @per_page), class: "form-control input-xs", :onchange => "$('form#game_search').submit()" %>
+            </div>
 
-      <% end %>
 
-      <div class="col-md-12" style="text-align: center">
-        <%= will_paginate @plays, renderer: BootstrapPagination::Rails %><br>
-        <span style="color:darkgray; font-size:12px;"><%= page_entries_info(@plays, :model => 'game') %></span>
-        <br><br>
-      </div>
-    </div>
-  </div>
+            <div class="col-md-12 paginate-container" style="text-align: center">
+              <%= will_paginate @plays, renderer: BootstrapPagination::Rails %><br>
+              <span style="color:darkgray; font-size:12px;"><%= page_entries_info(@plays, :model => 'game') %></span>
+              <br><br>
+            </div>
 
-</div>
+            </div>
+
+
+            </div>
+
+
+            </div>
+
+
+            <div class="col-md-12">
+              <hr>
+            </div>
+
+
+            <div style="margin-bottom: 150px;" class="col-md-12">
+              <div style="bottom: -145px;" id="cal-heatmap">
+                <table id="cal-heatmap-month-labels">
+                  <tr>
+                    <td>Jan</td>
+                    <td>Feb</td>
+                    <td>Mar</td>
+                    <td>Apr</td>
+                    <td>May</td>
+                    <td>Jun</td>
+                    <td>Jul</td>
+                    <td>Aug</td>
+                    <td>Sep</td>
+                    <td>Oct</td>
+                    <td>Nov</td>
+                    <td>Dec</td>
+                  </tr>
+                </table>
+
+                <div id="cal-heatmap-day-labels">
+                  <div>M</div>
+                  <div>W</div>
+                  <div>F</div>
+                </div>
+
+                <button class="btn btn-xs btn-default" id="onMinDomainReached-previous">
+                  <i class="glyphicon glyphicon-chevron-left"></i></button>
+                <button class="btn btn-xs btn-default" id="onMinDomainReached-next">
+                  <i class="glyphicon glyphicon-chevron-right"></i></button>
+
+                <div id="cal-heatmap-legend-labels">
+                  <span style="float:left">Less</span>
+                  <span style="float:right">More</span>
+                </div>
+              </div>
+
+
+              <script type="text/javascript">
+                  var cal = new CalHeatMap();
+                  cal.init({
+                      domain: "year",
+                      subDomain: "day",
+                      cellSize: 15,
+                      subDomainTextFormat: "%d",
+                      range: 1,
+                      displayLegend: true,
+                      weekStartOnMonday: false,
+                      start: new Date(2015, 0, 15),
+                      maxDate: new Date(2015, 11),
+                      nextSelector: "#onMinDomainReached-next",
+                      previousSelector: "#onMinDomainReached-previous",
+                      onMaxDomainReached: function (hit) {
+                          if (hit) {
+                              $("#onMinDomainReached-next").hide();
+                          } else {
+                              $("#onMinDomainReached-next").show();
+                          }
+                      },
+                      legendHorizontalPosition: "right",
+                      legendMargin: [-20, 0, 0, 0],
+                      highlight: ["now", new Date(2015, 2, 25)],
+                      legend: [1, 2, 3, 4],
+                      itemName: ["play", "plays"],
+                      tooltip: true,
+                      data: <%= get_heatmap_play_counts(params[:id]).html_safe %>
+                  });
+              </script>
+
+            </div>
+
+            <div class="col-md-12">
+              <hr>
+            </div>
+
+            <div class="col-md-8 col-md-offset-2">
+              <h2 class="recent-activity">Recent Activity</h2>
+
+              <% if @activities.count > 0 %>
+                  <% @activities.each do |activity| %>
+                      <div class="activity">
+                        <%= render_activity activity, locals: {user_id: params[:id]} %>
+                      </div>
+                  <% end %>
+              <% else %>
+                  <hr>
+                  <div class="text-muted"><i class="fa fa-exclamation-circle"></i> No User Activity</div>
+                  <hr>
+              <% end %>
+              <br>
+
+              <div id="item-per-page-dropdown">
+                Filter: <%= select_tag :filter, options_for_select(["All", "Plays", "Comments", "Friends", "Collection"], params[:filter]), class: "form-control input-xs", :onchange => "$('form#game_search').submit()" %>
+              </div>
+
+        <% end %>
+
+        <div class="col-md-12 paginate-container" style="text-align: center">
+          <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
+          <br><br>
+        </div>
+        <br><br><br>
+        </div>
+
+        </div>
 
 
 </div>

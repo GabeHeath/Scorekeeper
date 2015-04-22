@@ -139,3 +139,45 @@ function clearAdvancedSearchFields() {
     $('#end-date').val('')
     $('#location-search-bar').val('')
 }
+
+$(document).ready(function () {
+        $("#player-game-stats").tablesorter()
+    }
+);
+
+
+
+
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        content: function () {
+            return $('#popover-content').html();
+        }
+    });
+
+    $('body').on('click', function (e) {
+        $('[data-toggle="popover"]').each(function () {
+            //the 'is' for buttons that trigger popups
+            //the 'has' for icons within a button that triggers a popup
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                $(this).popover('hide');
+            }
+        });
+    });
+
+    $('#notification-btn').click(function() {
+        $.ajax({
+            type:'POST',
+            url: '/notifications/clear_new'
+        }).done ();
+    })
+});
+
+function markAsRead(url) {
+    console.log('js');
+    $.ajax({
+        type:'POST',
+        url: url
+    }).done ();
+}

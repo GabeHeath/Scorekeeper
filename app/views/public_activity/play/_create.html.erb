@@ -1,0 +1,32 @@
+<% win = activity.trackable.players.where(:user_id => user_id).first.win %>
+<% players = activity.trackable.players.where('user_id != ? OR user_id IS NULL', user_id).order('user_id desc') %>
+
+
+<span class="<%= activity_play_icon(win) %>  list-icon"></span>
+
+Played
+
+ <% if activity.trackable %>
+     <%= link_to activity.trackable.game.name, activity.trackable %><%= did_user_win(win) %>
+    <span class="activity-time"><%= time_ago_in_words(activity.trackable.created_at) %> ago</span>
+    <br>
+    <% if players.count > 0 %>
+        <span class="fa fa-users list-icon"></span>
+        <% players.each do |player| %>
+            <% if player == players.last %>
+                <% if player == players.first %>
+                    <%= list_players_names(player.id, player.win) %>
+                <% else %>
+                    and <%= list_players_names(player.id, player.win) %>
+                <% end %>
+            <% else %>
+                <%= list_players_names(player.id, player.win) %>,
+            <% end %>
+        <% end %>
+    <% end %>
+ <% else %>
+     a game that has been removed.
+    <span class="activity-time"><%= time_ago_in_words(activity.trackable.created_at) %> ago</span>
+ <% end %>
+
+<!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
